@@ -7,7 +7,17 @@ data = pd.read_csv('listings.csv.gz')
 df = pd.DataFrame(data)
 
 # keeping the data we are interested in
-df_for_model = df[['id','host_is_superhost','latitude','longitude','beds','price','minimum_nights','number_of_reviews','review_scores_rating']]
+df_for_model = df[['amenities','host_is_superhost','latitude','longitude','beds','accommodates','price','minimum_nights','number_of_reviews','review_scores_rating']]
+
+# amenities categorize
+df_for_model['amenities'] = df_for_model['amenities'].str.lower()
+df_for_model['has_pool'] = df_for_model['amenities'].str.contains('pool').astype(int)
+
+
+# drop amenities
+df_for_model = df_for_model.drop('amenities', axis=1)
+
+
 
 # have to remove the data without price
 df_for_model = df_for_model[df_for_model['price'].notna()]
@@ -27,6 +37,8 @@ df_for_model['host_is_superhost'] = df_for_model['host_is_superhost'].map({'t': 
 df_for_model['price'] = df_for_model['price'].str.replace('$','')
 df_for_model['price'] = df_for_model['price'].str.replace(',','')
 df_for_model['price'] = df_for_model['price'].astype(float)
+# work with prices lower than 400€
+df_for_model = df_for_model.loc[df_for_model['price'] <= 300]
 
 # WE HAVE ZEROS
 #print(df_for_model.isna().sum())
