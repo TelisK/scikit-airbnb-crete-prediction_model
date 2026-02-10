@@ -7,7 +7,7 @@ data = pd.read_csv('listings.csv.gz')
 df = pd.DataFrame(data)
 
 # keeping the data we are interested in
-df_for_model = df[['amenities','host_is_superhost','latitude','longitude','beds','accommodates','price','minimum_nights','number_of_reviews','review_scores_rating']]
+df_for_model = df[['amenities','description','host_is_superhost','latitude','longitude','beds','accommodates','price','minimum_nights','number_of_reviews','review_scores_rating']]
 
 # amenities categorize
 df_for_model['amenities'] = df_for_model['amenities'].str.lower()
@@ -16,6 +16,13 @@ df_for_model['has_pool'] = df_for_model['amenities'].str.contains('pool').astype
 
 # drop amenities
 df_for_model = df_for_model.drop('amenities', axis=1)
+
+# description categorize
+df_for_model['description'] = df_for_model['description'].str.lower()
+df_for_model['has_seaview'] = df_for_model['description'].str.contains('sea view|seaview|view at the sea|view at the beach|ocean view|beachfront', na=False).astype(int)
+
+# drop description
+df_for_model = df_for_model.drop('description', axis=1)
 
 
 
