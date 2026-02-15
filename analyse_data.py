@@ -7,7 +7,18 @@ data = pd.read_csv('listings.csv.gz')
 df = pd.DataFrame(data)
 
 # keeping the data we are interested in
-df_for_model = df[['amenities','description','host_is_superhost','latitude','longitude','beds','accommodates','price','minimum_nights','number_of_reviews','review_scores_rating']]
+df_for_model = df[['amenities','description','host_is_superhost',
+                   'latitude','longitude','beds','accommodates','price','minimum_nights',
+                   'number_of_reviews','review_scores_rating','estimated_occupancy_l365d',
+                   'instant_bookable', 'property_type','neighbourhood_cleansed',
+                   'host_response_time']]
+
+# making new columns automated, with the information inside these columns. A way
+# of making one hot encoder with pandas
+df_for_model = pd.get_dummies(df_for_model, columns=['instant_bookable', 'property_type',
+                                                      'neighbourhood_cleansed', 
+                                                      'host_response_time'])
+
 
 # amenities categorize
 df_for_model['amenities'] = df_for_model['amenities'].str.lower()
@@ -53,8 +64,9 @@ df_for_model['host_is_superhost'] = df_for_model['host_is_superhost'].map({'t': 
 df_for_model['price'] = df_for_model['price'].str.replace('$','')
 df_for_model['price'] = df_for_model['price'].str.replace(',','')
 df_for_model['price'] = df_for_model['price'].astype(float)
+
 # work with prices lower than 400€
-df_for_model = df_for_model.loc[df_for_model['price'] <= 300]
+df_for_model = df_for_model.loc[df_for_model['price'] <= 400]
 
 # WE HAVE ZEROS
 #print(df_for_model.isna().sum())
