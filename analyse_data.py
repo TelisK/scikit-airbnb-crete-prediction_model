@@ -12,6 +12,15 @@ df_for_model = df[['amenities','description','host_is_superhost','latitude','lon
 # amenities categorize
 df_for_model['amenities'] = df_for_model['amenities'].str.lower()
 df_for_model['has_pool'] = df_for_model['amenities'].str.contains('pool').astype(int)
+df_for_model['amenities_has_seaview'] = df_for_model['amenities'].str.contains('sea view|seaview|view at the sea|view at the beach|ocean view|beachfront|waterfront', na=False).astype(int)
+df_for_model['has_air_condition'] = df_for_model['amenities'].str.contains('air condition').astype(int)
+df_for_model['has_free_parking'] = df_for_model['amenities'].str.contains('free parking').astype(int)
+df_for_model['has_kitchen'] = df_for_model['amenities'].str.contains('kitchen|cooking|toaster', na=False).astype(int)
+df_for_model['has_safe'] = df_for_model['amenities'].str.contains('safe').astype(int)
+df_for_model['has_hot_water'] = df_for_model['amenities'].str.contains('hot water').astype(int)
+df_for_model['has_hair_dryer'] = df_for_model['amenities'].str.contains('hair dryer').astype(int)
+df_for_model['has_mountain_view'] = df_for_model['amenities'].str.contains('mountain view').astype(int)
+df_for_model['has_fireplace'] = df_for_model['amenities'].str.contains('fireplace').astype(int)
 
 
 # drop amenities
@@ -19,7 +28,7 @@ df_for_model = df_for_model.drop('amenities', axis=1)
 
 # description categorize
 df_for_model['description'] = df_for_model['description'].str.lower()
-df_for_model['has_seaview'] = df_for_model['description'].str.contains('sea view|seaview|view at the sea|view at the beach|ocean view|beachfront', na=False).astype(int)
+df_for_model['description_has_seaview'] = df_for_model['description'].str.contains('sea view|seaview|view at the sea|view at the beach|ocean view|beachfront|waterfront', na=False).astype(int)
 
 # drop description
 df_for_model = df_for_model.drop('description', axis=1)
