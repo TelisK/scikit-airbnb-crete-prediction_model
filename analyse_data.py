@@ -11,13 +11,14 @@ df_for_model = df[['amenities','description','host_is_superhost',
                    'latitude','longitude','beds','accommodates','price','minimum_nights',
                    'number_of_reviews','review_scores_rating','estimated_occupancy_l365d',
                    'instant_bookable', 'property_type','neighbourhood_cleansed',
-                   'host_response_time']]
+                   'host_response_time']].copy()
 
 # making new columns automated, with the information inside these columns. A way
 # of making one hot encoder with pandas
-df_for_model = pd.get_dummies(df_for_model, columns=['instant_bookable', 'property_type',
-                                                      'neighbourhood_cleansed', 
-                                                      'host_response_time'])
+
+# df_for_model = pd.get_dummies(df_for_model, columns=['instant_bookable', 'property_type',
+#                                                       'neighbourhood_cleansed', 
+#                                                       'host_response_time'])
 
 
 # amenities categorize
@@ -77,14 +78,26 @@ y = df_for_model['price']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=69)
 
+# One Hot Encoder
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+
+hot_features = ['instant_bookable','property_type','neighbourhood_cleansed','host_response_time']
+
+one_hot = OneHotEncoder(handle_unknown='ignore')
+transformer = ColumnTransformer(transformers=[('one_hot',one_hot,hot_features)], remainder='passthrough')
+
+X_train_encoded = transformer.fit_transform(X_train)
+X_test_encoded = transformer.transform(X_test)
+
 # Training
 model = RandomForestRegressor(random_state=69)
-model.fit(X_train,y_train)
+model.fit(X_train_encoded,y_train)
 
 print('Model Trained!')
 
 # Prediction
-y_predict = model.predict(X_test)
+y_predict = model.predict(X_test_encoded)
 
 # Checking
 mae = mean_absolute_error(y_test, y_predict)
