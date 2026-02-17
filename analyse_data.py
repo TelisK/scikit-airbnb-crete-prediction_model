@@ -105,3 +105,10 @@ r2 = r2_score(y_test, y_predict)
 
 print(f'Mean Absolute Error: {mae:.2f} €')
 print(f'R2 Score: {r2:.2f}')
+
+# Save trained model
+import joblib
+
+joblib.dump(model, 'model.pkl')
+joblib.dump(transformer, 'transformer.pkl')
+print('Model Saved!')
