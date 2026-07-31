@@ -91,7 +91,7 @@ X_train_encoded = transformer.fit_transform(X_train)
 X_test_encoded = transformer.transform(X_test)
 
 # Training
-model = RandomForestRegressor(random_state=69)
+model = RandomForestRegressor(n_estimators=50, random_state=69)
 model.fit(X_train_encoded,y_train)
 
 print('Model Trained!')

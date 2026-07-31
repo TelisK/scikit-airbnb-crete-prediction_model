@@ -51,7 +51,7 @@ def predict_price(
 
 
 price = predict_price(
-    host_is_superhost=0,
+    host_is_superhost=1,
     neighbourhood='Chania Old Town',
     latitude=35.515305,
     longitude=24.019071,
@@ -61,7 +61,7 @@ price = predict_price(
     minimum_nights=2,
     has_pool=1,
     has_air_condition=1,
-    has_free_parking=0,
+    has_free_parking=1,
     has_kitchen=1
 )
 
