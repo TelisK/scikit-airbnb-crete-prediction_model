@@ -69,3 +69,7 @@ Example:
 ```text
 Price Prediction: 145.32€/night
 ```
+
+## License
+
+This project is licensed under the MIT License.
