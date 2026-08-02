@@ -62,7 +62,8 @@ price = predict_price(
     has_pool=1,
     has_air_condition=1,
     has_free_parking=1,
-    has_kitchen=1
+    has_kitchen=1,
+    description_has_seaview=1,
 )
 
 print(f'Price Prediction: {price}€/night')
