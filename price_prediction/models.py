@@ -27,10 +27,10 @@ class DataSet(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=5)
     minimum_nights = models.IntegerField()
     number_of_reviews = models.IntegerField()
-    review_scores_rating = models.FloatField()
+    review_scores_rating = models.FloatField(null=True)
     estimated_occupancy_l365d = models.IntegerField()
     instant_bookable = models.BooleanField()
     property_type = models.CharField()
     neighbourhood_cleansed = models.CharField()
-    host_response_time = models.TimeField()
+    host_response_time = models.CharField()
 
