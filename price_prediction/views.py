@@ -52,6 +52,13 @@ def import_data(request):
             df_for_model.loc[(df_for_model['number_of_reviews'] == 0 & df_for_model['review_scores_rating'].isna()), 'review_scores_rating'] = 0
 
             df_for_model['host_is_superhost'] = df_for_model['host_is_superhost'].map({'t': 1, 'f': 0})
+            df_for_model['instant_bookable'] = df_for_model['instant_bookable'].map({'t': 1, 'f': 0})
+            df_for_model['host_response_time'] = df_for_model['host_response_time'].map({
+                'a few days or more' : 1,
+                'within a day' : 2,
+                'within a few hours' : 3,
+                'within an hour' : 4,
+            }).fillna(0)
 
             # corrections on the price column
             df_for_model['price'] = df_for_model['price'].str.replace('$','')
