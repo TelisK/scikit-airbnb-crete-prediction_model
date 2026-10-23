@@ -42,7 +42,20 @@ def import_data(request):
             df_for_model['description_has_seaview'] = df_for_model['description'].str.contains('sea view|seaview|view at the sea|' \
             'view at the beach|ocean view|beachfront|waterfront', na=False, case=False).astype(int)
 
-            df_for_model = df_for_model.drop(['amenities','description'], axis=1)
+
+            # filter for property type
+            df_for_model['entire_place'] = df_for_model['property_type'].str.contains('entire', na=False, case=False).astype(int)
+            df_for_model['private_room'] = df_for_model['property_type'].str.contains('private room', na=False, case=False).astype(int)
+            df_for_model['shared room'] = df_for_model['property_type'].str.contains('shared room|hostel', na=False, case=False).astype(int)
+            df_for_model['alternative'] = df_for_model['property_type'].str.contains('camper|rv|boat|' \
+            'campsite|tent|hut|yurt|treehouse|bus|container', na=False, case=False).astype(int)
+            # the entire serviced apartment gets into alternative . why???
+            df_for_model['luxury'] = df_for_model['property_type'].str.contains('villa|castle|island', na=False, case=False).astype(int)
+            df_for_model['hotel_room'] = df_for_model['property_type'].str.contains('hotel|aparthotel|pension|resort', na=False, case=False).astype(int)
+
+
+
+            df_for_model = df_for_model.drop(['amenities','description','property_type'], axis=1)
 
             # fill nan cells on beds with the median.
             df_for_model['beds'] = df_for_model['beds'].fillna(df_for_model['beds'].median())
