@@ -67,7 +67,7 @@ def import_data(request):
 
             df_for_model['host_is_superhost'] = df_for_model['host_is_superhost'].fillna('f')
 
-            df_for_model.loc[(df_for_model['number_of_reviews'] == 0 & df_for_model['review_scores_rating'].isna()), 'review_scores_rating'] = 0
+            df_for_model.loc[((df_for_model['number_of_reviews'] == 0) & (df_for_model['review_scores_rating'].isna())), 'review_scores_rating'] = 0
 
             df_for_model['host_is_superhost'] = df_for_model['host_is_superhost'].map({'t': 1, 'f': 0})
             df_for_model['instant_bookable'] = df_for_model['instant_bookable'].map({'t': 1, 'f': 0})
@@ -89,12 +89,12 @@ def import_data(request):
             active_listings = df_for_model.count().price
 
         else:
-            messages.error(request, '{form.errors}')
+            messages.error(request, f'{form.errors}')
 
     else:
         form = DataUploadForm()
 
-    return render(request, 'price_prediction/import_data.html' context=form)
+    return render(request, 'price_prediction/import_data.html', context={'form':form})
 
 def model_train(request, df_for_model):
 
@@ -110,7 +110,7 @@ def model_train(request, df_for_model):
     messages.success(request, 'Model Trained!')
 
     joblib.dump(model, 'model.pkl')
-    messages.success(request, 'Model Saved!')
+    messages.success(request, f'Model Saved!')
 
 
 def prediction():
