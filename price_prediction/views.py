@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from .forms import DataUploadForm
 import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+import joblib
+from sklearn.metrics import mean_absolute_error, r2_score
+from django.contrib import messages
 
 # Create your views here.
 @login_required
@@ -82,6 +87,30 @@ def import_data(request):
             #df_for_model = df_for_model.loc[df_for_model['price'] <= 400]
 
             active_listings = df_for_model.count().price
+
+        else:
+            messages.error(request, '{form.errors}')
+
+    else:
+        form = DataUploadForm()
+
+    return render(request, 'price_prediction/import_data.html' context=form)
+
+def model_train(request, df_for_model):
+
+    # splitting the data
+    X = df_for_model.drop('price',axis=1)
+    y = df_for_model['price']
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=69)
+
+    # Training
+    model = RandomForestRegressor(n_estimators=50, random_state=69)
+    model.fit(X_train,y_train)
+    messages.success(request, 'Model Trained!')
+
+    joblib.dump(model, 'model.pkl')
+    messages.success(request, 'Model Saved!')
 
 
 def prediction():
