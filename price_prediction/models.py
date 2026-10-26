@@ -1,8 +1,15 @@
 from django.db import models
 
 # Create your models here.
+
+class UploadedFile(models.Model):
+    uploaded_file = models.FileField(null=True, upload_to='imports/')
+    # filter for unique files
+    file_hash = models.CharField(unique=True, blank=True, editable=False)
+
 class DataInformation(models.Model):
     # data import information
+    related_file = models.ForeignKey(UploadedFile, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     data_country = models.CharField()
     data_area = models.CharField()
@@ -32,7 +39,7 @@ class DataSet(models.Model):
     instant_bookable = models.BooleanField()
     property_type = models.CharField()
     neighbourhood_cleansed = models.CharField()
-    host_response_time = models.IntegerField(min=0, max=4)
+    host_response_time = models.FloatField(min=0, max=4)
     has_pool = models.BooleanField()
     amenities_has_seaview = models.BooleanField()
     has_air_condition = models.BooleanField()
