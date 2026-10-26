@@ -2,8 +2,8 @@ import pandas as pd
 
 
 def clean_data(uploaded_file):
-
-    data = pd.read_csv(uploaded_file)
+    print(f'ΤΥΠΟΣ ΑΡΧΕΙΟΥ {type(uploaded_file)}')
+    data = pd.read_csv(uploaded_file, compression='gzip')
     df = pd.DataFrame(data)
 
     # keeping the data we are interested in
