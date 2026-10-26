@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <h1>analyse data</h1>
+    <h1>Analyser</h1>
+    <div class="upload-listings">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.file }}
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+    <div>
+        {% if messages %}
+        <div class="message-container">
+            {% for message in messages %}
+            <div class="alert alert-message-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.errors }}
+    </div>
 </body>
+
 </html>

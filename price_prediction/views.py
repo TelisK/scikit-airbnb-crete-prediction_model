@@ -15,42 +15,53 @@ from . import models
 def analyse_data(request):
     if request.method == 'POST':
         form = DataUploadForm(request.POST, request.FILES)
+
         if form.is_valid():
-            file = request.FILES['file']
-
-            # Check the hash of the file to protect from double register.
-            digest = hashlib.file_digest(file, "sha256").hexdigest()
-            file.seek(0)
-
-            if models.UploadedFile.objects.filter(file_hash=digest).exists():
-                messages.error(request, 'Το αρχείο είναι ήδη καταχωρημένο')
-                return redirect('price_prediction:import_data_analysis')
 
             try:
-                file_listings, active_listings, df_for_model = processing.clean_data(file)
+                file = request.FILES['file']
+                print('app read the file')
+                print(form.cleaned_data['file'].name)
 
-                models.UploadedFile.objects.create(uploaded_file=file, file_hash=digest)
+                # Check the hash of the file to protect from double register.
+                digest = hashlib.file_digest(file, "sha256").hexdigest()
+                file.seek(0)
+                print('hashlib is completed')
 
+                if models.UploadedFile.objects.filter(file_hash=digest).exists():
+                    print('inside if check for existing file')
+                    messages.error(request, 'Το αρχείο είναι ήδη καταχωρημένο')
+                    return redirect('price_prediction:analyse_data')
+
+                try:
+                    print('inside try go to the function to analyse')
+                    file_listings, active_listings, df_for_model = processing.clean_data(file)
+                    print(f'function completed.{file_listings}')
+                    print('create record on db')
+                    models.UploadedFile.objects.create(uploaded_file=file, file_hash=digest)
+
+                except Exception as e:
+                    messages.error(request, f'Σφάλμα στην επεξεργασία δεδομένων. {e}')
+                    return redirect('price_prediction:analyse_data')
+
+                context_to_html = {
+                    'file_listings':file_listings,
+                    'active_listings':active_listings,
+                }
+
+                return render(request, 'price_prediction/import_data.html', context=context_to_html)
             except Exception as e:
-                messages.error(request, f'Σφάλμα στην επεξεργασία δεδομένων. {e}')
-                return redirect('price_prediction:import_data_analysis')
-
-            context_to_html = {
-                'file_listings':file_listings,
-                'active_listings':active_listings,
-            }
-
-            return render(request, 'price_prediction/import_data.html', context=context_to_html)
+                messages.error(request, e)
 
         else:
             messages.error(request, 'Συνέβη σφάλμα στη φόρμα')
-            return render(request, 'price_prediction/import_data_analysis.html', context={'form':form})
+            return render(request, 'price_prediction/analyse_data.html', context={'form':form})
 
 
     else:
         form = DataUploadForm()
 
-    return render(request, 'price_prediction/import_data_analysis.html', context={'form':form})
+    return render(request, 'price_prediction/analyse_data.html', context={'form':form})
 
 
 # @login_required
