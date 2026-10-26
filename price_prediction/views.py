@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import DataUploadForm
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -10,7 +10,7 @@ from . import processing
 
 # Create your views here.
 @login_required
-def import_data(request):
+def analyse_data(request):
     if request.method == 'POST':
         form = DataUploadForm(request.POST, request.FILES)
         if form.is_valid():
@@ -22,16 +22,31 @@ def import_data(request):
             except Exception as e:
                 messages.error(request, 'Σφάλμα στην επεξεργασία δεδομένων. {e}')
 
-            
+            context_to_html = {
+                'file_listings':file_listings,
+                'active_listings':active_listings,
+            }
 
+            return render(request, 'price_prediction/import_data_analysis.html', context=context_to_html)
 
-        else:
-            messages.error(request, f'{form.errors}')
 
     else:
         form = DataUploadForm()
 
     return render(request, 'price_prediction/import_data.html', context={'form':form})
+
+
+@login_required
+def import_data(request):
+
+
+            
+
+        # add to the database
+    # try:
+    
+    # else:
+    #     messages.error(request, f'{form.errors}')
 
 
 def model_train(request, df_for_model):
