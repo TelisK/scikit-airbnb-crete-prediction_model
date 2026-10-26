@@ -5,13 +5,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 import joblib
 from sklearn.metrics import mean_absolute_error, r2_score
-from django.contrib import messages, Exception
+from django.contrib import messages
 from . import processing
 import hashlib
 from . import models
 
 # Create your views here.
-@login_required
+# @login_required
 def analyse_data(request):
     if request.method == 'POST':
         form = DataUploadForm(request.POST, request.FILES)
@@ -53,9 +53,9 @@ def analyse_data(request):
     return render(request, 'price_prediction/import_data_analysis.html', context={'form':form})
 
 
-@login_required
+# @login_required
 def import_data(request):
-
+    pass
 
             
 

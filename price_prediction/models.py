@@ -9,7 +9,7 @@ class UploadedFile(models.Model):
 
 class DataInformation(models.Model):
     # data import information
-    related_file = models.ForeignKey(UploadedFile, on_delete=models.SET_NULL)
+    related_file = models.ForeignKey(UploadedFile, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     data_country = models.CharField()
     data_area = models.CharField()
@@ -24,8 +24,6 @@ class DataInformation(models.Model):
     
 class DataSet(models.Model):
     data_information = models.ForeignKey(DataInformation, on_delete=models.CASCADE)
-    amenities = models.TextField(blank=True)
-    description = models.TextField(blank=True)
     host_is_superhost = models.BooleanField()
     latitude = models.FloatField()
     longitude = models.FloatField()
@@ -38,8 +36,7 @@ class DataSet(models.Model):
     estimated_occupancy_l365d = models.IntegerField()
     instant_bookable = models.BooleanField()
     property_type = models.CharField()
-    neighbourhood_cleansed = models.CharField()
-    host_response_time = models.FloatField(min=0, max=4)
+    host_response_time = models.FloatField()
     has_pool = models.BooleanField()
     amenities_has_seaview = models.BooleanField()
     has_air_condition = models.BooleanField()
