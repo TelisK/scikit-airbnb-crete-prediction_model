@@ -7,6 +7,8 @@ import joblib
 from sklearn.metrics import mean_absolute_error, r2_score
 from django.contrib import messages, Exception
 from . import processing
+import hashlib
+from . import models
 
 # Create your views here.
 @login_required
@@ -16,24 +18,39 @@ def analyse_data(request):
         if form.is_valid():
             file = request.FILES['file']
 
+            # Check the hash of the file to protect from double register.
+            digest = hashlib.file_digest(file, "sha256").hexdigest()
+            file.seek(0)
+
+            if models.UploadedFile.objects.filter(file_hash=digest).exists():
+                messages.error(request, 'Το αρχείο είναι ήδη καταχωρημένο')
+                return redirect('price_prediction:import_data_analysis')
+
             try:
                 file_listings, active_listings, df_for_model = processing.clean_data(file)
 
+                models.UploadedFile.objects.create(uploaded_file=file, file_hash=digest)
+
             except Exception as e:
-                messages.error(request, 'Σφάλμα στην επεξεργασία δεδομένων. {e}')
+                messages.error(request, f'Σφάλμα στην επεξεργασία δεδομένων. {e}')
+                return redirect('price_prediction:import_data_analysis')
 
             context_to_html = {
                 'file_listings':file_listings,
                 'active_listings':active_listings,
             }
 
-            return render(request, 'price_prediction/import_data_analysis.html', context=context_to_html)
+            return render(request, 'price_prediction/import_data.html', context=context_to_html)
+
+        else:
+            messages.error(request, 'Συνέβη σφάλμα στη φόρμα')
+            return render(request, 'price_prediction/import_data_analysis.html', context={'form':form})
 
 
     else:
         form = DataUploadForm()
 
-    return render(request, 'price_prediction/import_data.html', context={'form':form})
+    return render(request, 'price_prediction/import_data_analysis.html', context={'form':form})
 
 
 @login_required
