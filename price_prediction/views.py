@@ -47,9 +47,10 @@ def analyse_data(request):
                 context_to_html = {
                     'file_listings':file_listings,
                     'active_listings':active_listings,
+                    'result':True,
                 }
 
-                return render(request, 'price_prediction/import_data.html', context=context_to_html)
+                return render(request, 'price_prediction/analyse_data.html', context=context_to_html)
             except Exception as e:
                 messages.error(request, e)
 
