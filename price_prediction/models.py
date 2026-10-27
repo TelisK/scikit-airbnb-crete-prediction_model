@@ -7,6 +7,9 @@ class UploadedFile(models.Model):
     # filter for unique files
     file_hash = models.CharField(unique=True, blank=True, editable=False)
 
+    def __str__(self):
+        return f'{self.uploaded_file}'
+
 class DataInformation(models.Model):
     # data import information
     related_file = models.ForeignKey(UploadedFile, on_delete=models.SET_NULL, null=True)

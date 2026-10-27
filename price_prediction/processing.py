@@ -1,9 +1,12 @@
 import pandas as pd
+import gzip
 
 
 def clean_data(uploaded_file):
-    print(f'ΤΥΠΟΣ ΑΡΧΕΙΟΥ {type(uploaded_file)}')
-    data = pd.read_csv(uploaded_file, compression='gzip')
+    # use of rt because is text not binary
+    file = gzip.open(uploaded_file, mode='rt', encoding='utf-8')
+
+    data = pd.read_csv(file)
     df = pd.DataFrame(data)
 
     # keeping the data we are interested in
