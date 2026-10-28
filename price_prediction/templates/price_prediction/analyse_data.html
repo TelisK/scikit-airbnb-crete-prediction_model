@@ -21,12 +21,9 @@
         <p>Αρχεία που υπήρχαν στο αρχέιο: {{ file_listings }}</p>
         <p>Αρχεία που μπορούν να εισαχθούν στο μοντέλο: {{ active_listings }}</p>
 
-        <form method="POST" action="{% url import_data %}">
+        <form method="POST" action="{% url 'price_prediction:import_data' %}">
             {% csrf_token %}
-            <input type="text" name="data_country" value="{{ data_country }}">
-            <input type="text" name="data_area" value="{{ data_area }}">
-            <input type="text" name="data_town" value="{{ data_town }}">
-            <input type="date" name="data_date" value="{{ data_date }}">
+            {{ file_info_form }}
             <button type="submit">Καταχώρηση</button>
         </form>
 

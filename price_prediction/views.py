@@ -40,14 +40,17 @@ def analyse_data(request):
                 except Exception as e:
                     messages.error(request, f'Σφάλμα στην επεξεργασία δεδομένων. {e}')
                     return redirect('price_prediction:analyse_data')
+
+                file_info_form = DataInformationForm()
                 
                 context_to_html = {
                     'file_listings':file_listings,
                     'active_listings':active_listings,
                     'result':True,
+                    'file_info_form':file_info_form,
                 }
 
-                return render(request, 'price_prediction/import_data.html', context=context_to_html)
+                return render(request, 'price_prediction/analyse_data.html', context=context_to_html)
             except Exception as e:
                 messages.error(request, e)
 
@@ -65,8 +68,8 @@ def analyse_data(request):
 # @login_required
 def import_data(request):
     if request.method == 'POST':
-        form = DataInfomationForm(request.POST)
-        file_id = True
+        form = DataInformationForm(request.POST)
+        
         if form.is_valid():
             file_id = request.session.get('file_upload_id')
             if not file_id:
@@ -81,10 +84,49 @@ def import_data(request):
             data_town = form.cleaned_data['data_town']
             data_date = form.cleaned_data['data_date']
 
-            file_info = models.UploadedFile(data_country=data_country, data_area=data_area, data_town=data_town,
-                                            data_date=data_date, file_listings=file_listings, active_listings=active_listings)
+            file_info = models.DataInformation(related_file=file, data_country=data_country, data_area=data_area,
+                                               data_town=data_town, data_date=data_date, file_listings=file_listings, 
+                                               active_listings=active_listings)
 
             file_info.save()
+
+            for index, row in df_for_model.iterrows():
+                obj = models.DataSet(
+                    data_information=file_info,
+                    host_is_superhost=row['host_is_superhost'],
+                    latitude=row['latitude'],
+                    longitude=row['longitude'],
+                    beds=row['beds'],
+                    accommodates=row['accommodates'],
+                    price=row['price'],
+                    minimum_nights=row['minimum_nights'],
+                    number_of_reviews=row['number_of_reviews'],
+                    review_scores_rating=row['review_scores_rating'],
+                    estimated_occupancy_l365d=row['estimated_occupancy_l365d'],
+                    instant_bookable=row['instant_bookable'],
+                    property_type=row['property_type'],
+                    host_response_time=row['host_response_time'],
+                    has_pool=row['has_pool'],
+                    amenities_has_seaview=row['amenities_has_seaview'],
+                    has_air_condition=row['has_air_condition'],
+                    has_free_parking=row['has_free_parking'],
+                    has_kitchen=row['has_kitchen'],
+                    has_safe=row['has_safe'],
+                    has_hot_water=row['has_hot_water'],
+                    has_hair_dryer=row['has_hair_dryer'],
+                    has_mountain_view=row['has_mountain_view'],
+                    has_fireplace=row['has_fireplace'],
+                    is_villa=row['is_villa'],
+                    is_in_old_town=row['is_in_old_town'],
+                    description_has_seaview=row['description_has_seaview'],
+                    entire_place=row['entire_place'],
+                    private_room=row['private_room'],
+                    shared_room=row['shared_room'],
+                    alternative=row['alternative'],
+                    luxury=row['luxury'],
+                    hotel_room=row['hotel_room'],                       
+                )
+                obj.objects.bulk_create()
 
             
 
