@@ -128,6 +128,16 @@ def import_data(request):
                 )
                 obj.objects.bulk_create()
 
+            messages.success(request, 'H καταχώρηση ολοκληρώθηκε επιτυχώς!')
+            return redirect('price_prediction:analyse_data')
+
+        else:
+            messages.error(request, 'Η φόρμα χρειάζεται διορθώσεις')
+            return render(request, 'price_prediction/import_data.html', context={'form':form})
+
+    return redirect('price_rediction:import_data', id=file_id)
+
+
             
 
         # add to the database
