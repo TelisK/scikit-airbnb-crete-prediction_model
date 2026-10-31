@@ -91,8 +91,8 @@ def import_data(request):
             file_info.save()
 
             try:
-                for index, row in df_for_model.iterrows():
-                    obj = models.DataSet(
+                models.DataSet.objects.bulk_create([
+                    models.DataSet(
                         data_information=file_info,
                         host_is_superhost=row['host_is_superhost'],
                         latitude=row['latitude'],
@@ -124,9 +124,10 @@ def import_data(request):
                         shared_room=row['shared_room'],
                         alternative=row['alternative'],
                         luxury=row['luxury'],
-                        hotel_room=row['hotel_room'],                       
-                    )
-                    obj.objects.bulk_create()
+                        hotel_room=row['hotel_room'],                
+
+                    ) for _, row in df_for_model.iterrows()
+                ],batch_size=500)
 
                 messages.success(request, 'H καταχώρηση ολοκληρώθηκε επιτυχώς!')
                 return redirect('price_prediction:model_train')
