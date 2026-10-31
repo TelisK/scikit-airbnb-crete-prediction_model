@@ -11,6 +11,15 @@ import hashlib
 from . import models
 
 # Create your views here.
+def home(request):
+    files = models.DataInformation.objects.values('related_file').distinct().count()
+    areas = models.DataInformation.objects.values('data_area').distinct()
+
+    context_to_html = {
+        'files':files,
+        'areas':areas,
+    }
+    return render(request, 'price_prediction/home.html', context=context_to_html)
 # @login_required
 def analyse_data(request):
     if request.method == 'POST':
@@ -144,31 +153,35 @@ def import_data(request):
     return redirect('price_prediction:import_data')
 
 
-            
+def model_train(request):
 
-        # add to the database
-    # try:
-    
-    # else:
-    #     messages.error(request, f'{form.errors}')
+    if request.method == 'POST':
+        try:
+            # Here I can have a filter to choose the areas for training. Probably I need to seperate the training per area.
+            data = models.DataSet.objects.values()
+            df_for_train = pd.DataFrame.from_dict(data)
+            df_for_train = df_for_train.replace({True: 1, False: 0})
+            print(df_for_train.head())
+            # splitting the data
+            X = df_for_train.drop('price',axis=1)
+            y = df_for_train['price']
 
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=69)
 
-def model_train(request, df_for_model):
+            # Training
+            model = RandomForestRegressor(n_estimators=50, random_state=69)
+            model.fit(X_train,y_train)
+            messages.success(request, 'Model Trained!')
 
-    # splitting the data
-    X = df_for_model.drop('price',axis=1)
-    y = df_for_model['price']
+            joblib.dump(model, 'model.pkl')
+            messages.success(request, f'Model Saved!')
+            return redirect('price_prediction:home')
+        
+        except Exception as e:
+            messages.error(request, f'Συνέβη σφάλμα στην εκπαίδευση του μοντέλου {e}')
+            return redirect('price_prediction:model_train')
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=69)
-
-    # Training
-    model = RandomForestRegressor(n_estimators=50, random_state=69)
-    model.fit(X_train,y_train)
-    messages.success(request, 'Model Trained!')
-
-    joblib.dump(model, 'model.pkl')
-    messages.success(request, f'Model Saved!')
-
+    return render(request, 'price_prediction/model_train.html')
 
 def prediction():
     pass
@@ -178,3 +191,4 @@ def prediction():
 # Ε΄άν θέλω στο μέλλον διαδραστικό χάρτη με περι΄΄οχές πώς θα εξυπηρετούσε να γίνει;
 # Μπορεί να εμφανίζει στο χάρτη τα δεδομένα της βάσης. Τη πρόβλεψη καθώς και το σημείο του ενδιαφερόμενου θα δίνεται
 # απο το prediction view ;;;
+
