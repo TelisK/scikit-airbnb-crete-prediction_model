@@ -38,7 +38,6 @@ class DataSet(models.Model):
     review_scores_rating = models.FloatField(null=True)
     estimated_occupancy_l365d = models.IntegerField()
     instant_bookable = models.BooleanField()
-    property_type = models.CharField()
     host_response_time = models.FloatField()
     has_pool = models.BooleanField()
     amenities_has_seaview = models.BooleanField()

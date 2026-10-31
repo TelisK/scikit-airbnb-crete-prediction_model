@@ -42,7 +42,7 @@ def clean_data(uploaded_file):
     # filter for property type
     df_for_model['entire_place'] = df_for_model['property_type'].str.contains('entire', na=False, case=False).astype(int)
     df_for_model['private_room'] = df_for_model['property_type'].str.contains('private room', na=False, case=False).astype(int)
-    df_for_model['shared room'] = df_for_model['property_type'].str.contains('shared room|hostel', na=False, case=False).astype(int)
+    df_for_model['shared_room'] = df_for_model['property_type'].str.contains('shared room|hostel', na=False, case=False).astype(int)
     df_for_model['alternative'] = df_for_model['property_type'].str.contains('camper|boat|' \
     'campsite|tent|hut|yurt|treehouse|bus|container', na=False, case=False).astype(int)
     df_for_model['luxury'] = df_for_model['property_type'].str.contains('villa|castle|island', na=False, case=False).astype(int)
