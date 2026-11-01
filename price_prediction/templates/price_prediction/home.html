@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>HOME</h1>
+    <a href="{% url 'price_prediction:analyse_data' %}"><button>Νέα Καταχώρηση listing</button></a>
     <p>Files: {{ files }}</p>
     <p>Areas: {{ areas }}</p>
             {% if messages %}

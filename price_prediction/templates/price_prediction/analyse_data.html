@@ -9,6 +9,7 @@
 
 <body>
     <h1>Analyser</h1>
+    <a href="{% url 'price_prediction:home' %}"><button>Αρχική</button></a>
     <div class="upload-listings">
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
