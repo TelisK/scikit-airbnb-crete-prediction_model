@@ -133,7 +133,9 @@ def import_data(request):
                         shared_room=row['shared_room'],
                         alternative=row['alternative'],
                         luxury=row['luxury'],
-                        hotel_room=row['hotel_room'],                
+                        hotel_room=row['hotel_room'],
+                        host_is_superhost_isNaN=row['host_is_superhost_isNaN'],
+                        instant_bookable_isNaN=row['instant_bookable_isNaN'],             
 
                     ) for _, row in df_for_model.iterrows()
                 ],batch_size=500)

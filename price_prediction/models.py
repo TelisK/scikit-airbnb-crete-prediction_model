@@ -58,3 +58,5 @@ class DataSet(models.Model):
     alternative = models.BooleanField()
     luxury = models.BooleanField()
     hotel_room = models.BooleanField()
+    host_is_superhost_isNaN = models.BooleanField()
+    instant_bookable_isNaN = models.BooleanField()
