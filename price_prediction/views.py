@@ -12,16 +12,19 @@ from . import models
 
 # Create your views here.
 def home(request):
-    files = models.DataInformation.objects.values('related_file').distinct().count()
-    areas = models.DataInformation.objects.values('data_area').distinct()
+    pass
+    
 
-    context_to_html = {
-        'files':files,
-        'areas':areas,
-    }
-    return render(request, 'price_prediction/home.html', context=context_to_html)
+    # context_to_html = {
+    #     'files':files,
+    #     'areas':areas,
+    # }
+    # return render(request, 'price_prediction/home.html', context=context_to_html)
 # @login_required
 def analyse_data(request):
+    files = models.DataInformation.objects.values('related_file').distinct().count()
+    areas = models.DataInformation.objects.values('data_area').distinct()
+    
     if request.method == 'POST':
         form = DataUploadForm(request.POST, request.FILES)
 
@@ -71,7 +74,13 @@ def analyse_data(request):
     else:
         form = DataUploadForm()
 
-    return render(request, 'price_prediction/analyse_data.html', context={'form':form})
+        context_to_html = {
+            'form':form,
+            'files':files,
+            'areas':areas,
+            }
+
+    return render(request, 'price_prediction/analyse_data.html', context=context_to_html)
 
 
 # @login_required

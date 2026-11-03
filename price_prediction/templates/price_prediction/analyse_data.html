@@ -30,6 +30,14 @@
 
     </div>
     {% endif %}
+
+    <div class="stored-data">
+        <h1>Καταχωρημένα δεδομένα</h1>
+        <p>Files: {{ files }}</p>
+        {% for area in areas %}
+        <p>Areas: {{ area }}</p>
+        {% endfor %}
+    </div>
     <div>
         {% if messages %}
         <div class="message-container">
