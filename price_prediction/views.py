@@ -184,9 +184,11 @@ def model_train(request):
             model.fit(X_train,y_train)
             messages.success(request, 'Model Trained!')
 
+            # Εδώ λείπει το transformer.pkl. Νομίζω δέν χρειάζεται απο τη στιγμή που δίνω όλα τα columns και δέν δημιουργεί
+            # το scikit learn columns με δεδομένα.
             joblib.dump(model, 'model.pkl')
             messages.success(request, f'Model Saved!')
-            return redirect('price_prediction:home')
+            return redirect('price_prediction:analyse_data')
         
         except Exception as e:
             messages.error(request, f'Συνέβη σφάλμα στην εκπαίδευση του μοντέλου {e}')
