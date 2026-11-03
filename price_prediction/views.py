@@ -12,14 +12,60 @@ from . import models
 
 # Create your views here.
 def home(request):
-    pass
+    user_latitude = request.GET.get('user_latitude')
+    user_longitude = request.GET.get('user_longitude')
+    user_beds = request.GET.get('user_beds')
+    user_accommodates = request.GET.get('user_accommodates')
+    user_minimum_nights = request.GET.get('user_minimum_nights')
+    user_number_of_reviews = request.GET.get('user_number_of_reviews')
+    user_has_pool = request.GET.get('user_has_pool')
+    user_amenities_has_seaview = request.GET.get('user_amenities_has_seaview')
+    #παντρεμα με το description seaview?
+    user_has_mountain_view = request.GET.get('user_has_mountain_view')
+    user_has_air_condition = request.GET.get('user_has_air_condition')
+    user_has_free_parking = request.GET.get('user_has_free_parking')
+    user_has_kitchen = request.GET.get('user_has_kitchen')
+    user_has_safe = request.GET.get('user_has_safe')
+    user_has_hot_water = request.GET.get('user_has_hot_water')
+    user_has_hair_dryer = request.GET.get('user_has_hair_dryer')
+    user_has_fireplace = request.GET.get('user_has_fireplace')
+    user_is_villa = request.GET.get('user_is_villa')
+    user_is_in_old_town = request.GET.get('user_is_in_old_town')
+    user_entire_place = request.GET.get('user_entire_place')
+    user_private_room = request.GET.get('user_private_room')
+    user_shared_room = request.GET.get('user_shared_room')
+    user_alternative = request.GET.get('user_alternative')
+    user_luxury = request.GET.get('user_luxury')
+    user_hotel_room = request.GET.get('user_hotel_room')
     
 
-    # context_to_html = {
-    #     'files':files,
-    #     'areas':areas,
-    # }
-    # return render(request, 'price_prediction/home.html', context=context_to_html)
+    context_to_html = {
+        'user_latitude':user_latitude,
+        'user_longitude':user_longitude,
+        'user_beds':user_beds,
+        'user_accommodates':user_accommodates,
+        'user_minimum_nights':user_minimum_nights,
+        'user_number_of_reviews':user_number_of_reviews,
+        'user_has_pool':user_has_pool,
+        'user_amenities_has_seaview':user_amenities_has_seaview,
+        'user_has_mountain_view':user_has_mountain_view,
+        'user_has_air_condition':user_has_air_condition,
+        'user_has_free_parking':user_has_free_parking,
+        'user_has_kitchen':user_has_kitchen,
+        'user_has_safe':user_has_safe,
+        'user_has_hot_water':user_has_hot_water,
+        'user_has_hair_dryer':user_has_hair_dryer,
+        'user_has_fireplace':user_has_fireplace,
+        'user_is_villa':user_is_villa,
+        'user_is_in_old_town':user_is_in_old_town,
+        'user_entire_place':user_entire_place,
+        'user_private_room':user_private_room,
+        'user_shared_room':user_shared_room,
+        'user_alternative':user_alternative,
+        'user_luxury':user_luxury,
+        'user_hotel_room':user_hotel_room,
+    }
+    return render(request, 'price_prediction/home.html', context=context_to_html)
 # @login_required
 def analyse_data(request):
     files = models.DataInformation.objects.values('related_file').distinct().count()
