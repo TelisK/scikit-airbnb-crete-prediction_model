@@ -17,7 +17,7 @@ def home(request):
     user_beds = request.GET.get('user_beds')
     user_accommodates = request.GET.get('user_accommodates')
     user_minimum_nights = request.GET.get('user_minimum_nights')
-    user_number_of_reviews = request.GET.get('user_number_of_reviews')
+    # user_number_of_reviews = request.GET.get('user_number_of_reviews')
     user_has_pool = request.GET.get('user_has_pool')
     user_has_seaview = request.GET.get('user_has_seaview')
     seaview = 1 if user_has_seaview else 0
@@ -47,7 +47,7 @@ def home(request):
         'beds':user_beds,
         'accommodates':user_accommodates,
         'minimum_nights':user_minimum_nights,
-        'number_of_reviews':user_number_of_reviews,
+        # 'number_of_reviews':user_number_of_reviews,
         'has_pool':user_has_pool,
         'amenities_has_seaview':seaview,
         'has_mountain_view':user_has_mountain_view,
@@ -78,7 +78,7 @@ def home(request):
         'user_beds':user_beds,
         'user_accommodates':user_accommodates,
         'user_minimum_nights':user_minimum_nights,
-        'user_number_of_reviews':user_number_of_reviews,
+        # 'user_number_of_reviews':user_number_of_reviews,
         'user_has_pool':user_has_pool,
         'user_amenities_has_seaview':user_has_seaview,
         'user_has_mountain_view':user_has_mountain_view,
@@ -192,18 +192,12 @@ def import_data(request):
                 models.DataSet.objects.bulk_create([
                     models.DataSet(
                         data_information=file_info,
-                        host_is_superhost=row['host_is_superhost'],
                         latitude=row['latitude'],
                         longitude=row['longitude'],
                         beds=row['beds'],
                         accommodates=row['accommodates'],
-                        price=row['price'],
                         minimum_nights=row['minimum_nights'],
-                        number_of_reviews=row['number_of_reviews'],
-                        review_scores_rating=row['review_scores_rating'],
-                        estimated_occupancy_l365d=row['estimated_occupancy_l365d'],
-                        instant_bookable=row['instant_bookable'],
-                        host_response_time=row['host_response_time'],
+                        price=row['price'],
                         has_pool=row['has_pool'],
                         amenities_has_seaview=row['amenities_has_seaview'],
                         has_air_condition=row['has_air_condition'],
@@ -222,9 +216,7 @@ def import_data(request):
                         shared_room=row['shared_room'],
                         alternative=row['alternative'],
                         luxury=row['luxury'],
-                        hotel_room=row['hotel_room'],
-                        host_is_superhost_isNaN=row['host_is_superhost_isNaN'],
-                        instant_bookable_isNaN=row['instant_bookable_isNaN'],             
+                        hotel_room=row['hotel_room'],            
 
                     ) for _, row in df_for_model.iterrows()
                 ],batch_size=500)
@@ -254,7 +246,7 @@ def model_train(request):
             df_for_train = df_for_train.replace({True: 1, False: 0})
             print(df_for_train.head())
             # splitting the data
-            X = df_for_train.drop('price',axis=1)
+            X = df_for_train.drop(columns=['price', 'id', 'data_information_id'])
             y = df_for_train['price']
 
             X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=69)
