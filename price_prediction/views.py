@@ -19,8 +19,8 @@ def home(request):
     user_minimum_nights = request.GET.get('user_minimum_nights')
     user_number_of_reviews = request.GET.get('user_number_of_reviews')
     user_has_pool = request.GET.get('user_has_pool')
-    user_amenities_has_seaview = request.GET.get('user_amenities_has_seaview')
-    #παντρεμα με το description seaview?
+    user_has_seaview = request.GET.get('user_has_seaview')
+    seaview = 1 if user_has_seaview else 0
     user_has_mountain_view = request.GET.get('user_has_mountain_view')
     user_has_air_condition = request.GET.get('user_has_air_condition')
     user_has_free_parking = request.GET.get('user_has_free_parking')
@@ -37,7 +37,40 @@ def home(request):
     user_alternative = request.GET.get('user_alternative')
     user_luxury = request.GET.get('user_luxury')
     user_hotel_room = request.GET.get('user_hotel_room')
-    
+
+
+    input_data = pd.DataFrame([{
+        
+        'description_has_seaview':seaview,
+        'latitude':user_latitude,
+        'longitude':user_longitude,
+        'beds':user_beds,
+        'accommodates':user_accommodates,
+        'minimum_nights':user_minimum_nights,
+        'number_of_reviews':user_number_of_reviews,
+        'has_pool':user_has_pool,
+        'amenities_has_seaview':seaview,
+        'has_mountain_view':user_has_mountain_view,
+        'has_air_condition':user_has_air_condition,
+        'has_free_parking':user_has_free_parking,
+        'has_kitchen':user_has_kitchen,
+        'has_safe':user_has_safe,
+        'has_hot_water':user_has_hot_water,
+        'has_hair_dryer':user_has_hair_dryer,
+        'has_fireplace':user_has_fireplace,
+        'is_villa':user_is_villa,
+        'is_in_old_town':user_is_in_old_town,
+        'entire_place':user_entire_place,
+        'private_room':user_private_room,
+        'shared_room':user_shared_room,
+        'alternative':user_alternative,
+        'luxury':user_luxury,
+        'hotel_room':user_hotel_room,
+    }])
+
+    model = joblib.load('model.pkl')
+    prediction = model.predict(input_data)
+
 
     context_to_html = {
         'user_latitude':user_latitude,
@@ -47,7 +80,7 @@ def home(request):
         'user_minimum_nights':user_minimum_nights,
         'user_number_of_reviews':user_number_of_reviews,
         'user_has_pool':user_has_pool,
-        'user_amenities_has_seaview':user_amenities_has_seaview,
+        'user_amenities_has_seaview':user_has_seaview,
         'user_has_mountain_view':user_has_mountain_view,
         'user_has_air_condition':user_has_air_condition,
         'user_has_free_parking':user_has_free_parking,
@@ -64,6 +97,7 @@ def home(request):
         'user_alternative':user_alternative,
         'user_luxury':user_luxury,
         'user_hotel_room':user_hotel_room,
+        'prediction':prediction
     }
     return render(request, 'price_prediction/home.html', context=context_to_html)
 # @login_required

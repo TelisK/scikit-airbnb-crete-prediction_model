@@ -19,15 +19,15 @@
         </div>
         <div class="standard-form">
             <label>Διαθέσιμα Κρεβάτια</label>
-            <input type="text" name="user_beds" value="{{ user_beds }}">
+            <input type="number" name="user_beds" value="{{ user_beds }}">
         </div>
         <div class="standard-form">
             <label>Φιλοξενεί</label>
-            <input type="text" name="user_accommodates" value="{{ user_accommodates }}">
+            <input type="number" name="user_accommodates" value="{{ user_accommodates }}">
         </div>
         <div class="standard-form">
             <label>Ελάχιστος αριθμός διανυκτερεύσεων</label>
-            <input type="text" name="user_minimum_nights" value="{{ user_minimum_nights }}">
+            <input type="number" name="user_minimum_nights" value="{{ user_minimum_nights }}">
         </div>
         <div class="standard-form">
             <label>Reviews ??</label>
@@ -35,141 +35,79 @@
         </div>
         <div class="standard-form">
             <label>Πισίνα</label>
-            <input type="text" name="user_has_pool" value="{{ user_has_pool }}">
+            <input type="checkbox" name="user_has_pool" value="{{ user_has_pool }}">
         </div>
         <div class="standard-form">
             <label>Θέα θάλασσα</label>
-            <input type="text" name="user_amenities_has_seaview" value="{{ user_amenities_has_seaview }}">
+            <input type="checkbox" name="user_has_seaview" value="{{ user_amenities_has_seaview }}">
         </div>
                     <div class="standard-form">
             <label>Θέα βουνό</label>
-            <input type="text" name="user_has_mountain_view" value="{{ user_has_mountain_view }}">
+            <input type="checkbox" name="user_has_mountain_view" value="{{ user_has_mountain_view }}">
         </div>
         <div class="standard-form">
             <label>Αir condition</label>
-            <input type="text" name="user_has_air_condition" value="{{ user_has_air_condition }}">
+            <input type="checkbox" name="user_has_air_condition" value="{{ user_has_air_condition }}">
         </div>
         <div class="standard-form">
             <label>Δωρεάν Πάρκινκ</label>
-            <input type="text" name="user_has_free_parking" value="{{ user_has_free_parking }}">
+            <input type="checkbox" name="user_has_free_parking" value="{{ user_has_free_parking }}">
         </div>
         <div class="standard-form">
             <label>Κουζίνα</label>
-            <input type="text" name="user_has_kitchen" value="{{ user_has_kitchen }}">
+            <input type="checkbox" name="user_has_kitchen" value="{{ user_has_kitchen }}">
         </div>
         <div class="standard-form">
             <label>Χρηματοκιβώτιο</label>
-            <input type="text" name="user_has_safe" value="{{ user_has_safe }}">
+            <input type="checkbox" name="user_has_safe" value="{{ user_has_safe }}">
         </div>
         <div class="standard-form">
             <label>Ζεστό νερό</label>
-            <input type="text" name="user_has_hot_water" value="{{ user_has_hot_water }}">
+            <input type="checkbox" name="user_has_hot_water" value="{{ user_has_hot_water }}">
         </div>
         <div class="standard-form">
             <label>Πιστολάκι μαλλιών</label>
-            <input type="text" name="user_has_hair_dryer" value="{{ user_has_hair_dryer }}">
+            <input type="checkbox" name="user_has_hair_dryer" value="{{ user_has_hair_dryer }}">
         </div>
 
         <div class="standard-form">
             <label>Τζάκι</label>
-            <input type="text" name="user_has_fireplace" value="{{ user_has_fireplace }}">
+            <input type="checkbox" name="user_has_fireplace" value="{{ user_has_fireplace }}">
         </div>
         <div class="standard-form">
             <label>Βίλλα</label>
-            <input type="text" name="user_is_villa" value="{{ user_is_villa }}">
+            <input type="checkbox" name="user_is_villa" value="{{ user_is_villa }}">
         </div>
         <div class="standard-form">
-            <label>is_in_old_town</label>
-            <input type="text" name="user_is_in_old_town" value="{{ user_is_in_old_town }}">
+            <label>Είναι στην Παλιά Πόλη</label>
+            <input type="checkbox" name="user_is_in_old_town" value="{{ user_is_in_old_town }}">
         </div>
             <div class="standard-form">
-            <label>entire_place</label>
-            <input type="text" name="user_entire_place" value="{{ user_entire_place }}">
+            <label>Ολόκληρο διαμέρισμα/σπίτι</label>
+            <input type="checkbox" name="user_entire_place" value="{{ user_entire_place }}">
         </div>
         <div class="standard-form">
-            <label>private_room</label>
-            <input type="text" name="user_private_room" value="{{ user_private_room }}">
+            <label>Ενοικίαση δωματίου σε σπίτι</label>
+            <input type="checkbox" name="user_private_room" value="{{ user_private_room }}">
         </div>
         <div class="standard-form">
-            <label>shared_room</label>
+            <label>Ενοικίαση κοινόχρηστου δωματίου</label>
             <input type="checkbox" name="user_shared_room" value="{{ user_shared_room }}">
         </div>
         <div class="standard-form">
-            <label>alternative</label>
+            <label>Τροχόσπιτο/Container/Σκηνή/Σκάφος κλπ</label>
             <input type="checkbox" name="user_alternative" value="{{ user_alternative }}">
         </div>
                 <div class="standard-form">
-            <label>luxury</label>
+            <label>Πολυτελείας</label>
             <input type="checkbox" name="user_luxury" value="{{ user_luxury }}">
         </div>
                 <div class="standard-form">
-            <label>hotel_room</label>
+            <label>Δωμάτιο ξενοδοχείου</label>
             <input type="checkbox" name="user_hotel_room" value="{{ user_hotel_room }}">
         </div>
     
     </div>
-
-    <!--
-      data_information = models.ForeignKey(DataInformation, on_delete=models.CASCADE)
-    -----host_is_superhost = models.BooleanField()
-    latitude = models.FloatField()
-    longitude = models.FloatField()
-    beds = models.FloatField()
-    accommodates = models.IntegerField()
-    minimum_nights = models.IntegerField()
-    number_of_reviews = models.IntegerField()
-    ----review_scores_rating = models.FloatField(null=True)
-    ----estimated_occupancy_l365d = models.IntegerField()
-    ----instant_bookable = models.BooleanField()
-    ----host_response_time = models.FloatField()
-    has_pool = models.BooleanField()
-    amenities_has_seaview = models.BooleanField()
-    has_air_condition = models.BooleanField()
-    has_free_parking = models.BooleanField()
-    has_kitchen = models.BooleanField()
-    has_safe = models.BooleanField()
-    has_hot_water = models.BooleanField()
-    has_hair_dryer = models.BooleanField()
-    has_mountain_view = models.BooleanField()
-    has_fireplace = models.BooleanField()
-    is_villa = models.BooleanField()
-    is_in_old_town = models.BooleanField()
-    --------------description_has_seaview = models.BooleanField()
-    entire_place = models.BooleanField()
-    private_room = models.BooleanField()
-    shared_room = models.BooleanField()
-    alternative = models.BooleanField()
-    luxury = models.BooleanField()
-    hotel_room = models.BooleanField()
-    host_is_superhost_isNaN = models.BooleanField()
-    instant_bookable_isNaN = models.BooleanField()
-    
-    
-    
-    'host_is_superhost': host_is_superhost,
-        'latitude': latitude,
-        'longitude': longitude,
-        'beds': beds,
-        'accommodates': accommodates,
-        'minimum_nights': minimum_nights,
-        'number_of_reviews': number_of_reviews,
-        'review_scores_rating': review_scores_rating,
-        'estimated_occupancy_l365d': estimated_occupancy_l365d,
-        'instant_bookable': instant_bookable,
-        'property_type': property_type,
-        'neighbourhood_cleansed': neighbourhood,
-        'host_response_time': host_response_time,
-        'has_pool': has_pool,
-        'amenities_has_seaview': amenities_has_seaview,
-        'has_air_condition': has_air_condition,
-        'has_free_parking': has_free_parking,
-        'has_kitchen': has_kitchen,
-        'has_safe': has_safe,
-        'has_hot_water': has_hot_water,
-        'has_hair_dryer': has_hair_dryer,
-        'has_mountain_view': has_mountain_view,
-        'has_fireplace': has_fireplace,
-        'description_has_seaview': description_has_seaview, -->
 
 
 
