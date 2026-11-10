@@ -38,38 +38,43 @@ def home(request):
     user_luxury = request.GET.get('user_luxury')
     user_hotel_room = request.GET.get('user_hotel_room')
 
+    if request.GET:
+        input_data = pd.DataFrame([{
+            
+            'latitude': user_latitude,
+            'longitude': user_longitude,
+            'beds': user_beds,
+            'accommodates': user_accommodates,
+            'minimum_nights': user_minimum_nights,
+            'has_pool': user_has_pool,
+            'amenities_has_seaview': seaview,
+            'has_air_condition': user_has_air_condition,
+            'has_free_parking': user_has_free_parking,
+            'has_kitchen': user_has_kitchen,
+            'has_safe': user_has_safe,
+            'has_hot_water': user_has_hot_water,
+            'has_hair_dryer': user_has_hair_dryer,
+            'has_mountain_view': user_has_mountain_view,
+            'has_fireplace': user_has_fireplace,
+            'is_villa': user_is_villa,
+            'is_in_old_town': user_is_in_old_town,
+            'description_has_seaview': seaview,
+            'entire_place': user_entire_place,
+            'private_room': user_private_room,
+            'shared_room': user_shared_room,
+            'alternative': user_alternative,
+            'luxury': user_luxury,
+            'hotel_room': user_hotel_room,
+        }])
 
-    input_data = pd.DataFrame([{
-        
-        'latitude': user_latitude,
-        'longitude': user_longitude,
-        'beds': user_beds,
-        'accommodates': user_accommodates,
-        'minimum_nights': user_minimum_nights,
-        'has_pool': user_has_pool,
-        'amenities_has_seaview': seaview,
-        'has_air_condition': user_has_air_condition,
-        'has_free_parking': user_has_free_parking,
-        'has_kitchen': user_has_kitchen,
-        'has_safe': user_has_safe,
-        'has_hot_water': user_has_hot_water,
-        'has_hair_dryer': user_has_hair_dryer,
-        'has_mountain_view': user_has_mountain_view,
-        'has_fireplace': user_has_fireplace,
-        'is_villa': user_is_villa,
-        'is_in_old_town': user_is_in_old_town,
-        'description_has_seaview': seaview,
-        'entire_place': user_entire_place,
-        'private_room': user_private_room,
-        'shared_room': user_shared_room,
-        'alternative': user_alternative,
-        'luxury': user_luxury,
-        'hotel_room': user_hotel_room,
-    }])
+        model = joblib.load('model.pkl')
+        prediction = model.predict(input_data)
 
-    model = joblib.load('model.pkl')
-    prediction = model.predict(input_data)
+        return render(request, 'price_prediction/home.html', context={'prediction':prediction})
 
+
+# Τύποι: τα checkboxes θέλουν 1 if ... else 0 και οι αριθμοί float()/int().
+#  model.predict επιστρέφει πίνακα: πάρε [0] και στρογγυλοποίησε, π.χ. round(float(prediction[0]), 2).
 
     context_to_html = {
         'user_latitude':user_latitude,
@@ -96,7 +101,6 @@ def home(request):
         'user_alternative':user_alternative,
         'user_luxury':user_luxury,
         'user_hotel_room':user_hotel_room,
-        'prediction':prediction
     }
     return render(request, 'price_prediction/home.html', context=context_to_html)
 # @login_required

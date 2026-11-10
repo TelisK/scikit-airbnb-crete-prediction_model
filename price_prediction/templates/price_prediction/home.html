@@ -12,97 +12,106 @@
     <a href="{% url 'price_prediction:analyse_data' %}"><button>Νέα Καταχώρηση listing</button></a>
 
     <div class="user-form">
-        <div class="standard-form">
-            <label>Συντεταγμένες</label>
-            <input type="number" name="user_latitude" value="{{ user_latitude }}">
-            <input type="number" name="user_longitude" value="{{ user_longitude }}">
-        </div>
-        <div class="standard-form">
-            <label>Διαθέσιμα Κρεβάτια</label>
-            <input type="number" name="user_beds" value="{{ user_beds }}">
-        </div>
-        <div class="standard-form">
-            <label>Φιλοξενεί</label>
-            <input type="number" name="user_accommodates" value="{{ user_accommodates }}">
-        </div>
-        <div class="standard-form">
-            <label>Ελάχιστος αριθμός διανυκτερεύσεων</label>
-            <input type="number" name="user_minimum_nights" value="{{ user_minimum_nights }}">
-        </div>
-        <div class="standard-form">
-            <label>Πισίνα</label>
-            <input type="checkbox" name="user_has_pool" value="{{ user_has_pool }}">
-        </div>
-        <div class="standard-form">
-            <label>Θέα θάλασσα</label>
-            <input type="checkbox" name="user_has_seaview" value="{{ user_amenities_has_seaview }}">
-        </div>
-                    <div class="standard-form">
-            <label>Θέα βουνό</label>
-            <input type="checkbox" name="user_has_mountain_view" value="{{ user_has_mountain_view }}">
-        </div>
-        <div class="standard-form">
-            <label>Αir condition</label>
-            <input type="checkbox" name="user_has_air_condition" value="{{ user_has_air_condition }}">
-        </div>
-        <div class="standard-form">
-            <label>Δωρεάν Πάρκινκ</label>
-            <input type="checkbox" name="user_has_free_parking" value="{{ user_has_free_parking }}">
-        </div>
-        <div class="standard-form">
-            <label>Κουζίνα</label>
-            <input type="checkbox" name="user_has_kitchen" value="{{ user_has_kitchen }}">
-        </div>
-        <div class="standard-form">
-            <label>Χρηματοκιβώτιο</label>
-            <input type="checkbox" name="user_has_safe" value="{{ user_has_safe }}">
-        </div>
-        <div class="standard-form">
-            <label>Ζεστό νερό</label>
-            <input type="checkbox" name="user_has_hot_water" value="{{ user_has_hot_water }}">
-        </div>
-        <div class="standard-form">
-            <label>Πιστολάκι μαλλιών</label>
-            <input type="checkbox" name="user_has_hair_dryer" value="{{ user_has_hair_dryer }}">
-        </div>
-
-        <div class="standard-form">
-            <label>Τζάκι</label>
-            <input type="checkbox" name="user_has_fireplace" value="{{ user_has_fireplace }}">
-        </div>
-        <div class="standard-form">
-            <label>Βίλλα</label>
-            <input type="checkbox" name="user_is_villa" value="{{ user_is_villa }}">
-        </div>
-        <div class="standard-form">
-            <label>Είναι στην Παλιά Πόλη</label>
-            <input type="checkbox" name="user_is_in_old_town" value="{{ user_is_in_old_town }}">
-        </div>
+        <form method="GET">
+            <!-- {% csrf_token %} -->
             <div class="standard-form">
-            <label>Ολόκληρο διαμέρισμα/σπίτι</label>
-            <input type="checkbox" name="user_entire_place" value="{{ user_entire_place }}">
-        </div>
-        <div class="standard-form">
-            <label>Ενοικίαση δωματίου σε σπίτι</label>
-            <input type="checkbox" name="user_private_room" value="{{ user_private_room }}">
-        </div>
-        <div class="standard-form">
-            <label>Ενοικίαση κοινόχρηστου δωματίου</label>
-            <input type="checkbox" name="user_shared_room" value="{{ user_shared_room }}">
-        </div>
-        <div class="standard-form">
-            <label>Τροχόσπιτο/Container/Σκηνή/Σκάφος κλπ</label>
-            <input type="checkbox" name="user_alternative" value="{{ user_alternative }}">
-        </div>
-                <div class="standard-form">
-            <label>Πολυτελείας</label>
-            <input type="checkbox" name="user_luxury" value="{{ user_luxury }}">
-        </div>
-                <div class="standard-form">
-            <label>Δωμάτιο ξενοδοχείου</label>
-            <input type="checkbox" name="user_hotel_room" value="{{ user_hotel_room }}">
-        </div>
-    
+                <label>Συντεταγμένες</label>
+                <!-- step="any" is used to allow any float. This is helpful for coordinates -->
+                <input type="number" step="any" name="user_latitude" value="{{ user_latitude }}">
+                <input type="number" step="any" name="user_longitude" value="{{ user_longitude }}">
+            </div>
+            <div class="standard-form">
+                <label>Διαθέσιμα Κρεβάτια</label>
+                <input type="number" name="user_beds" value="{{ user_beds }}">
+            </div>
+            <div class="standard-form">
+                <label>Φιλοξενεί</label>
+                <input type="number" name="user_accommodates" value="{{ user_accommodates }}">
+            </div>
+            <div class="standard-form">
+                <label>Ελάχιστος αριθμός διανυκτερεύσεων</label>
+                <input type="number" name="user_minimum_nights" value="{{ user_minimum_nights }}">
+            </div>
+            <div class="standard-form">
+                <label>Πισίνα</label>
+                <input type="checkbox" name="user_has_pool" value="{{ user_has_pool }}">
+            </div>
+            <div class="standard-form">
+                <label>Θέα θάλασσα</label>
+                <input type="checkbox" name="user_has_seaview" value="{{ user_amenities_has_seaview }}">
+            </div>
+            <div class="standard-form">
+                <label>Θέα βουνό</label>
+                <input type="checkbox" name="user_has_mountain_view" value="{{ user_has_mountain_view }}">
+            </div>
+            <div class="standard-form">
+                <label>Αir condition</label>
+                <input type="checkbox" name="user_has_air_condition" value="{{ user_has_air_condition }}">
+            </div>
+            <div class="standard-form">
+                <label>Δωρεάν Πάρκινκ</label>
+                <input type="checkbox" name="user_has_free_parking" value="{{ user_has_free_parking }}">
+            </div>
+            <div class="standard-form">
+                <label>Κουζίνα</label>
+                <input type="checkbox" name="user_has_kitchen" value="{{ user_has_kitchen }}">
+            </div>
+            <div class="standard-form">
+                <label>Χρηματοκιβώτιο</label>
+                <input type="checkbox" name="user_has_safe" value="{{ user_has_safe }}">
+            </div>
+            <div class="standard-form">
+                <label>Ζεστό νερό</label>
+                <input type="checkbox" name="user_has_hot_water" value="{{ user_has_hot_water }}">
+            </div>
+            <div class="standard-form">
+                <label>Πιστολάκι μαλλιών</label>
+                <input type="checkbox" name="user_has_hair_dryer" value="{{ user_has_hair_dryer }}">
+            </div>
+
+            <div class="standard-form">
+                <label>Τζάκι</label>
+                <input type="checkbox" name="user_has_fireplace" value="{{ user_has_fireplace }}">
+            </div>
+            <div class="standard-form">
+                <label>Βίλλα</label>
+                <input type="checkbox" name="user_is_villa" value="{{ user_is_villa }}">
+            </div>
+            <div class="standard-form">
+                <label>Είναι στην Παλιά Πόλη</label>
+                <input type="checkbox" name="user_is_in_old_town" value="{{ user_is_in_old_town }}">
+            </div>
+            <div class="standard-form">
+                <label>Ολόκληρο διαμέρισμα/σπίτι</label>
+                <input type="checkbox" name="user_entire_place" value="{{ user_entire_place }}">
+            </div>
+            <div class="standard-form">
+                <label>Ενοικίαση δωματίου σε σπίτι</label>
+                <input type="checkbox" name="user_private_room" value="{{ user_private_room }}">
+            </div>
+            <div class="standard-form">
+                <label>Ενοικίαση κοινόχρηστου δωματίου</label>
+                <input type="checkbox" name="user_shared_room" value="{{ user_shared_room }}">
+            </div>
+            <div class="standard-form">
+                <label>Τροχόσπιτο/Container/Σκηνή/Σκάφος κλπ</label>
+                <input type="checkbox" name="user_alternative" value="{{ user_alternative }}">
+            </div>
+            <div class="standard-form">
+                <label>Πολυτελείας</label>
+                <input type="checkbox" name="user_luxury" value="{{ user_luxury }}">
+            </div>
+            <div class="standard-form">
+                <label>Δωμάτιο ξενοδοχείου</label>
+                <input type="checkbox" name="user_hotel_room" value="{{ user_hotel_room }}">
+            </div>
+
+            <button type="submit">Πρόβλεψη</button>
+        </form>
+    </div>
+
+    <div class="prediction-result">
+        {{ prediction }}
     </div>
 
 
