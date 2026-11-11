@@ -12,33 +12,34 @@ from . import models
 
 # Create your views here.
 def home(request):
-    user_latitude = request.GET.get('user_latitude')
-    user_longitude = request.GET.get('user_longitude')
-    user_beds = request.GET.get('user_beds')
-    user_accommodates = request.GET.get('user_accommodates')
-    user_minimum_nights = request.GET.get('user_minimum_nights')
-    # user_number_of_reviews = request.GET.get('user_number_of_reviews')
-    user_has_pool = request.GET.get('user_has_pool')
+    user_latitude = float(request.GET.get('user_latitude'))
+    user_longitude = float(request.GET.get('user_longitude'))
+    user_beds = int(request.GET.get('user_beds'))
+    user_accommodates = int(request.GET.get('user_accommodates'))
+    user_minimum_nights = int(request.GET.get('user_minimum_nights'))
+    user_has_pool = 1 if request.GET.get('user_has_pool') else 0
     user_has_seaview = request.GET.get('user_has_seaview')
     seaview = 1 if user_has_seaview else 0
-    user_has_mountain_view = request.GET.get('user_has_mountain_view')
-    user_has_air_condition = request.GET.get('user_has_air_condition')
-    user_has_free_parking = request.GET.get('user_has_free_parking')
-    user_has_kitchen = request.GET.get('user_has_kitchen')
-    user_has_safe = request.GET.get('user_has_safe')
-    user_has_hot_water = request.GET.get('user_has_hot_water')
-    user_has_hair_dryer = request.GET.get('user_has_hair_dryer')
-    user_has_fireplace = request.GET.get('user_has_fireplace')
-    user_is_villa = request.GET.get('user_is_villa')
-    user_is_in_old_town = request.GET.get('user_is_in_old_town')
-    user_entire_place = request.GET.get('user_entire_place')
-    user_private_room = request.GET.get('user_private_room')
-    user_shared_room = request.GET.get('user_shared_room')
-    user_alternative = request.GET.get('user_alternative')
-    user_luxury = request.GET.get('user_luxury')
-    user_hotel_room = request.GET.get('user_hotel_room')
+    user_has_mountain_view = 1 if request.GET.get('user_has_mountain_view') else 0
+    user_has_air_condition = 1 if request.GET.get('user_has_air_condition') else 0
+    user_has_free_parking = 1 if request.GET.get('user_has_free_parking') else 0
+    user_has_kitchen = 1 if request.GET.get('user_has_kitchen') else 0
+    user_has_safe = 1 if request.GET.get('user_has_safe') else 0
+    user_has_hot_water = 1 if request.GET.get('user_has_hot_water') else 0
+    user_has_hair_dryer = 1 if request.GET.get('user_has_hair_dryer') else 0
+    user_has_fireplace = 1 if request.GET.get('user_has_fireplace') else 0
+    user_is_villa = 1 if request.GET.get('user_is_villa') else 0
+    user_is_in_old_town = 1 if request.GET.get('user_is_in_old_town') else 0
+    user_entire_place = 1 if request.GET.get('user_entire_place') else 0
+    user_private_room = 1 if request.GET.get('user_private_room') else 0
+    user_shared_room = 1 if request.GET.get('user_shared_room') else 0
+    user_alternative = 1 if request.GET.get('user_alternative') else 0
+    user_luxury = 1 if request.GET.get('user_luxury') else 0
+    user_hotel_room = 1 if request.GET.get('user_hotel_room') else 0
 
     if request.GET:
+        print(user_luxury, type(user_luxury), user_beds, type(user_beds))
+        print(user_latitude, type(user_latitude))
         input_data = pd.DataFrame([{
             
             'latitude': user_latitude,
@@ -69,6 +70,7 @@ def home(request):
 
         model = joblib.load('model.pkl')
         prediction = model.predict(input_data)
+        prediction = f'{prediction[0]:.2f} € / Διανυκτέρευση'
 
         return render(request, 'price_prediction/home.html', context={'prediction':prediction})
 
