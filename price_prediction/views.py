@@ -12,11 +12,11 @@ from . import models
 
 # Create your views here.
 def home(request):
-    user_latitude = float(request.GET.get('user_latitude'))
-    user_longitude = float(request.GET.get('user_longitude'))
-    user_beds = int(request.GET.get('user_beds'))
-    user_accommodates = int(request.GET.get('user_accommodates'))
-    user_minimum_nights = int(request.GET.get('user_minimum_nights'))
+    user_latitude = request.GET.get('user_latitude')
+    user_longitude = request.GET.get('user_longitude')
+    user_beds = request.GET.get('user_beds')
+    user_accommodates = request.GET.get('user_accommodates')
+    user_minimum_nights = request.GET.get('user_minimum_nights')
     user_has_pool = 1 if request.GET.get('user_has_pool') else 0
     user_has_seaview = request.GET.get('user_has_seaview')
     seaview = 1 if user_has_seaview else 0
@@ -37,46 +37,49 @@ def home(request):
     user_luxury = 1 if request.GET.get('user_luxury') else 0
     user_hotel_room = 1 if request.GET.get('user_hotel_room') else 0
 
+# μου αλλάζει τις συντεταγμένες και μου βάζει , αντί για . Έτσι δέν το διαβάζει σωστά..
+
     if request.GET:
-        print(user_luxury, type(user_luxury), user_beds, type(user_beds))
-        print(user_latitude, type(user_latitude))
-        input_data = pd.DataFrame([{
-            
-            'latitude': user_latitude,
-            'longitude': user_longitude,
-            'beds': user_beds,
-            'accommodates': user_accommodates,
-            'minimum_nights': user_minimum_nights,
-            'has_pool': user_has_pool,
-            'amenities_has_seaview': seaview,
-            'has_air_condition': user_has_air_condition,
-            'has_free_parking': user_has_free_parking,
-            'has_kitchen': user_has_kitchen,
-            'has_safe': user_has_safe,
-            'has_hot_water': user_has_hot_water,
-            'has_hair_dryer': user_has_hair_dryer,
-            'has_mountain_view': user_has_mountain_view,
-            'has_fireplace': user_has_fireplace,
-            'is_villa': user_is_villa,
-            'is_in_old_town': user_is_in_old_town,
-            'description_has_seaview': seaview,
-            'entire_place': user_entire_place,
-            'private_room': user_private_room,
-            'shared_room': user_shared_room,
-            'alternative': user_alternative,
-            'luxury': user_luxury,
-            'hotel_room': user_hotel_room,
-        }])
+        if type(user_latitude) == float and type(user_longitude) == float:
 
-        model = joblib.load('model.pkl')
-        prediction = model.predict(input_data)
-        prediction = f'{prediction[0]:.2f} € / Διανυκτέρευση'
+            input_data = pd.DataFrame([{
+                'latitude': float(user_latitude),
+                'longitude': float(user_longitude),
+                'beds': int(user_beds),
+                'accommodates': int(user_accommodates),
+                'minimum_nights': int(user_minimum_nights),
+                'has_pool': user_has_pool,
+                'amenities_has_seaview': seaview,
+                'has_air_condition': user_has_air_condition,
+                'has_free_parking': user_has_free_parking,
+                'has_kitchen': user_has_kitchen,
+                'has_safe': user_has_safe,
+                'has_hot_water': user_has_hot_water,
+                'has_hair_dryer': user_has_hair_dryer,
+                'has_mountain_view': user_has_mountain_view,
+                'has_fireplace': user_has_fireplace,
+                'is_villa': user_is_villa,
+                'is_in_old_town': user_is_in_old_town,
+                'description_has_seaview': seaview,
+                'entire_place': user_entire_place,
+                'private_room': user_private_room,
+                'shared_room': user_shared_room,
+                'alternative': user_alternative,
+                'luxury': user_luxury,
+                'hotel_room': user_hotel_room,
+            }])
 
-        return render(request, 'price_prediction/home.html', context={'prediction':prediction})
+            model = joblib.load('model.pkl')
+            prediction = model.predict(input_data)
+            prediction = f'{prediction[0]:.2f} € / Διανυκτέρευση'
 
+# εάν κάνω context={'prediction': prediction, 'values': request.GET}), και στο html
+# π.χ. value="{{ values.user_beds }}"  και {% if values.user_has_pool %}checked{% endif %}
+# για να μήν χάνονται τα δεδομένα μετά που κάνω την πρόβλεψη.
+            return render(request, 'price_prediction/home.html', context={'prediction':prediction})
 
-# Τύποι: τα checkboxes θέλουν 1 if ... else 0 και οι αριθμοί float()/int().
-#  model.predict επιστρέφει πίνακα: πάρε [0] και στρογγυλοποίησε, π.χ. round(float(prediction[0]), 2).
+        else:
+            messages.error(request, 'Τα πεδία Συντεταγμένες είναι υποχρεωτικά.')
 
     context_to_html = {
         'user_latitude':user_latitude,
