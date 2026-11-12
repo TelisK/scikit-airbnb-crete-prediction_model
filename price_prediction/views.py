@@ -37,10 +37,8 @@ def home(request):
     user_luxury = 1 if request.GET.get('user_luxury') else 0
     user_hotel_room = 1 if request.GET.get('user_hotel_room') else 0
 
-# μου αλλάζει τις συντεταγμένες και μου βάζει , αντί για . Έτσι δέν το διαβάζει σωστά..
-
     if request.GET:
-        if type(user_latitude) == float and type(user_longitude) == float:
+        try:
 
             input_data = pd.DataFrame([{
                 'latitude': float(user_latitude),
@@ -78,8 +76,10 @@ def home(request):
 # για να μήν χάνονται τα δεδομένα μετά που κάνω την πρόβλεψη.
             return render(request, 'price_prediction/home.html', context={'prediction':prediction})
 
-        else:
-            messages.error(request, 'Τα πεδία Συντεταγμένες είναι υποχρεωτικά.')
+        except Exception as e:
+            print(type(user_latitude))
+            print('arithmitika',user_beds, user_accommodates, user_minimum_nights, type(user_beds))
+            messages.error(request, f'Τα πεδία είναι λάθος. {e}')
 
     context_to_html = {
         'user_latitude':user_latitude,
