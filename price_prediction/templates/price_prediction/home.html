@@ -17,32 +17,32 @@
             <div class="standard-form">
                 <label>Συντεταγμένες</label>
                 <!-- step="any" is used to allow any float. This is helpful for coordinates -->
-                <input type="number" step="any" name="user_latitude" value="{{ user_latitude }}" required>
-                <input type="number" step="any" name="user_longitude" value="{{ user_longitude }}" required>
+                <input placeholder="35.513830" type="number" step="any" name="user_latitude" value="{{ values.user_latitude }}" required>
+                <input placeholder="24.020390" type="number" step="any" name="user_longitude" value="{{ values.user_longitude }}" required>
             </div>
             <div class="standard-form">
                 <label>Διαθέσιμα Κρεβάτια</label>
-                <input type="number" name="user_beds" value="{{ user_beds }}" required>
+                <input type="number" name="user_beds" value="{{ values.user_beds }}" required>
             </div>
             <div class="standard-form">
                 <label>Φιλοξενεί</label>
-                <input type="number" name="user_accommodates" value="{{ user_accommodates }}" required>
+                <input type="number" name="user_accommodates" value="{{ values.user_accommodates }}" required>
             </div>
             <div class="standard-form">
                 <label>Ελάχιστος αριθμός διανυκτερεύσεων</label>
-                <input type="number" name="user_minimum_nights" value="{{ user_minimum_nights }}" required>
+                <input type="number" name="user_minimum_nights" value="{{ values.user_minimum_nights }}" required>
             </div>
             <div class="standard-form">
                 <label>Πισίνα</label>
-                <input type="checkbox" name="user_has_pool" value="{{ user_has_pool }}">
+                <input type="checkbox" name="user_has_pool" value="1" {% if values.user_has_pool %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Θέα θάλασσα</label>
-                <input type="checkbox" name="user_has_seaview" value="{{ user_amenities_has_seaview }}">
+                <input type="checkbox" name="user_has_seaview" value="1" {% if values.user_amenities_has_seaview %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Θέα βουνό</label>
-                <input type="checkbox" name="user_has_mountain_view" value="{{ user_has_mountain_view }}">
+                <input type="checkbox" name="user_has_mountain_view" value="1" {% if values.user_has_mountain_view %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Αir condition</label>

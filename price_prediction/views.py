@@ -74,11 +74,15 @@ def home(request):
 # εάν κάνω context={'prediction': prediction, 'values': request.GET}), και στο html
 # π.χ. value="{{ values.user_beds }}"  και {% if values.user_has_pool %}checked{% endif %}
 # για να μήν χάνονται τα δεδομένα μετά που κάνω την πρόβλεψη.
-            return render(request, 'price_prediction/home.html', context={'prediction':prediction})
+            context_to_html = {
+                'prediction':prediction,
+                'values':request.GET,
+            }
+            print(request.GET)
+            print(prediction)
+            return render(request, 'price_prediction/home.html', context=context_to_html)
 
         except Exception as e:
-            print(type(user_latitude))
-            print('arithmitika',user_beds, user_accommodates, user_minimum_nights, type(user_beds))
             messages.error(request, f'Τα πεδία είναι λάθος. {e}')
 
     context_to_html = {
