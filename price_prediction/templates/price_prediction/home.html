@@ -5,11 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css" rel="stylesheet">
+    <script src="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.js"></script>
 </head>
 
 <body>
     <h1>HOME</h1>
     <a href="{% url 'price_prediction:analyse_data' %}"><button>Νέα Καταχώρηση listing</button></a>
+
+    <div id="map" style="height: 500px"></div>
 
     <div class="user-form">
         <form method="GET">
@@ -129,6 +133,25 @@
     <div>
         {{ form.errors }}
     </div>
+
+    <script>
+  const map = new maplibregl.Map({
+    container: 'map',
+    style: 'https://tiles.openfreemap.org/styles/liberty',
+    center: [24.81, 35.24],   // [lng, lat] — Κρήτη
+    zoom: 8,
+  });
+
+  let marker = null;
+  map.on('click', (e) => {
+    const lat = e.lngLat.lat.toFixed(6);
+    const lng = e.lngLat.lng.toFixed(6);
+    document.getElementById('user_latitude').value = lat;
+    document.getElementById('user_longitude').value = lng;
+    if (marker) { marker.setLngLat(e.lngLat); }
+    else { marker = new maplibregl.Marker().setLngLat(e.lngLat).addTo(map); }
+  });
+    </script>
 </body>
 
 </html>
