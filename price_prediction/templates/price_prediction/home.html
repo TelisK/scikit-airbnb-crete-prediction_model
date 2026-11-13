@@ -13,7 +13,7 @@
     <h1>HOME</h1>
     <a href="{% url 'price_prediction:analyse_data' %}"><button>Νέα Καταχώρηση listing</button></a>
 
-    <div id="map" style="height: 500px"></div>
+    <div id="map" style="height: 400px"></div>
 
     <div class="user-form">
         <form method="GET">
@@ -21,8 +21,8 @@
             <div class="standard-form">
                 <label>Συντεταγμένες</label>
                 <!-- step="any" is used to allow any float. This is helpful for coordinates -->
-                <input placeholder="35.513830" type="number" step="any" name="user_latitude" value="{{ values.user_latitude }}" required>
-                <input placeholder="24.020390" type="number" step="any" name="user_longitude" value="{{ values.user_longitude }}" required>
+                <input placeholder="35.513830" type="number" step="any" id="user_latitude" name="user_latitude" value="{{ values.user_latitude }}" required>
+                <input placeholder="24.020390" type="number" step="any" id="user_longitude" name="user_longitude" value="{{ values.user_longitude }}" required>
             </div>
             <div class="standard-form">
                 <label>Διαθέσιμα Κρεβάτια</label>
@@ -135,22 +135,30 @@
     </div>
 
     <script>
-  const map = new maplibregl.Map({
-    container: 'map',
-    style: 'https://tiles.openfreemap.org/styles/liberty',
-    center: [24.81, 35.24],   // [lng, lat] — Κρήτη
-    zoom: 8,
-  });
+        // https://openfreemap.org/quick_start/
 
-  let marker = null;
-  map.on('click', (e) => {
-    const lat = e.lngLat.lat.toFixed(6);
-    const lng = e.lngLat.lng.toFixed(6);
-    document.getElementById('user_latitude').value = lat;
-    document.getElementById('user_longitude').value = lng;
-    if (marker) { marker.setLngLat(e.lngLat); }
-    else { marker = new maplibregl.Marker().setLngLat(e.lngLat).addTo(map); }
-  });
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://tiles.openfreemap.org/styles/liberty',
+            center: [24.81, 35.30],   // [lng, lat] — Κρήτη
+            zoom: 8,
+        });
+
+        let marker = null;
+        map.on('click', (e) => {
+            const lat = e.lngLat.lat.toFixed(6);
+            const lng = e.lngLat.lng.toFixed(6);
+            document.getElementById('user_latitude').value = lat;
+            document.getElementById('user_longitude').value = lng;
+            if (marker) { marker.setLngLat(e.lngLat); }
+            else { marker = new maplibregl.Marker().setLngLat(e.lngLat).addTo(map); }
+        });
+        map.on('load', () => {
+    showPoint(
+        parseFloat(document.getElementById('user_latitude').value),
+        parseFloat(document.getElementById('user_longitude').value)
+    );
+});
     </script>
 </body>
 
