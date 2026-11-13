@@ -71,9 +71,9 @@ def home(request):
             prediction = model.predict(input_data)
             prediction = f'{prediction[0]:.2f} € / Διανυκτέρευση'
 
-# εάν κάνω context={'prediction': prediction, 'values': request.GET}), και στο html
-# π.χ. value="{{ values.user_beds }}"  και {% if values.user_has_pool %}checked{% endif %}
-# για να μήν χάνονται τα δεδομένα μετά που κάνω την πρόβλεψη.
+# μου τα αλλαζει το . με , στα latitude και longitude. Μαλλον φταίει η ελληνική έκδοση browser?
+# στο url και στα prints είναι σωστό.
+# πρέπει να βρώ λύση.
             context_to_html = {
                 'prediction':prediction,
                 'values':request.GET,

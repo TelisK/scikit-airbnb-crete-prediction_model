@@ -46,64 +46,64 @@
             </div>
             <div class="standard-form">
                 <label>Αir condition</label>
-                <input type="checkbox" name="user_has_air_condition" value="{{ user_has_air_condition }}">
+                <input type="checkbox" name="user_has_air_condition" value="1" {% if values.user_has_air_condition %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Δωρεάν Πάρκινκ</label>
-                <input type="checkbox" name="user_has_free_parking" value="{{ user_has_free_parking }}">
+                <input type="checkbox" name="user_has_free_parking" value="1" {% if values.user_has_free_parking %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Κουζίνα</label>
-                <input type="checkbox" name="user_has_kitchen" value="{{ user_has_kitchen }}">
+                <input type="checkbox" name="user_has_kitchen" value="1" {% if values.user_has_kitchen %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Χρηματοκιβώτιο</label>
-                <input type="checkbox" name="user_has_safe" value="{{ user_has_safe }}">
+                <input type="checkbox" name="user_has_safe" value="1" {% if values.user_has_safe %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Ζεστό νερό</label>
-                <input type="checkbox" name="user_has_hot_water" value="{{ user_has_hot_water }}">
+                <input type="checkbox" name="user_has_hot_water" value="1" {% if values.user_has_hot_water %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Πιστολάκι μαλλιών</label>
-                <input type="checkbox" name="user_has_hair_dryer" value="{{ user_has_hair_dryer }}">
+                <input type="checkbox" name="user_has_hair_dryer" value="1" {% if values.user_has_hair_dryer %}checked{% endif %}>
             </div>
 
             <div class="standard-form">
                 <label>Τζάκι</label>
-                <input type="checkbox" name="user_has_fireplace" value="{{ user_has_fireplace }}">
+                <input type="checkbox" name="user_has_fireplace" value="1" {% if values.user_has_fireplace %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Βίλλα</label>
-                <input type="checkbox" name="user_is_villa" value="{{ user_is_villa }}">
+                <input type="checkbox" name="user_is_villa" value="1" {% if values.user_is_villa %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Είναι στην Παλιά Πόλη</label>
-                <input type="checkbox" name="user_is_in_old_town" value="{{ user_is_in_old_town }}">
+                <input type="checkbox" name="user_is_in_old_town" value="1" {% if values.user_is_in_old_town %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Ολόκληρο διαμέρισμα/σπίτι</label>
-                <input type="checkbox" name="user_entire_place" value="{{ user_entire_place }}">
+                <input type="checkbox" name="user_entire_place" value="1" {% if values.user_entire_place %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Ενοικίαση δωματίου σε σπίτι</label>
-                <input type="checkbox" name="user_private_room" value="{{ user_private_room }}">
+                <input type="checkbox" name="user_private_room" value="1" {% if values.user_private_room %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Ενοικίαση κοινόχρηστου δωματίου</label>
-                <input type="checkbox" name="user_shared_room" value="{{ user_shared_room }}">
+                <input type="checkbox" name="user_shared_room" value="1" {% if values.user_shared_room %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Τροχόσπιτο/Container/Σκηνή/Σκάφος κλπ</label>
-                <input type="checkbox" name="user_alternative" value="{{ user_alternative }}">
+                <input type="checkbox" name="user_alternative" value="1" {% if values.user_alternative %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Πολυτελείας</label>
-                <input type="checkbox" name="user_luxury" value="{{ user_luxury }}">
+                <input type="checkbox" name="user_luxury" value="1" {% if values.user_luxury %}checked{% endif %}>
             </div>
             <div class="standard-form">
                 <label>Δωμάτιο ξενοδοχείου</label>
-                <input type="checkbox" name="user_hotel_room" value="{{ user_hotel_room }}">
+                <input type="checkbox" name="user_hotel_room" value="1" {% if values.user_hotel_room %}checked{% endif %}>
             </div>
 
             <button type="submit">Πρόβλεψη</button>
