@@ -1,0 +1,29 @@
+:root {
+    --header: #236468;
+    --bg-main: #eef1f0;
+    --result-card: #b48aeb;
+    --hover-white: #f4f4f2;
+    --gray: #5d6166a4;
+    --black: #2d3336;
+    --border: #d5ddda;
+    --cards: #f8faf9;
+    --warning: #e37787;
+}
+* {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.page-title {
+    /* background-color: var(--bg-main); */
+    text-align: center;
+
+}
+.page-title h1 {
+    color: var(--black);
+}
+.page-title p {
+    color: var(--gray);
+}
+.prediction-section {
+    display: grid;
+    grid-template-columns: 3fr 1.5fr;
+}

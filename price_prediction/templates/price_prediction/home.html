@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +9,7 @@
     <title>Document</title>
     <link href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css" rel="stylesheet">
     <script src="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.js"></script>
+    <link rel="stylesheet" href="{% static 'price_prediction/style.css' %}">
 </head>
 
 <body>
@@ -14,122 +17,122 @@
         <h1>Airbnb Crete Income Estimator</h1>
         <p>Εκτίμηση δυνητικού εισοδήματος βραχυχρόνιας μίσθωσης. <br>
             Ανάλυση πραγματικών δεδομένων καταλυμάτων στην Κρήτη με χρήση Machine Learning. <br>
-        H εκτίμηση λαμβάνει υπόψη την περιοχή και τα χαρακτηριστικά κάθε καταλύματος.</p>
+        H εκτίμηση λαμβάνει υπόψη την περιοχή και τα χαρακτηριστικά του καταλύματος.</p>
     </div>
     <a href="{% url 'price_prediction:analyse_data' %}"><button>Νέα Καταχώρηση listing</button></a>
-
-    <div class="left-side">
-        <div id="map" style="height: 400px"></div>
+    <div class="prediction-section">
+        <div class="left-side">
+            <div id="map" style="height: 400px"></div>
+            
+            <div class="prediction-result">
+                {{ prediction }}
+            </div>
+        </div>
         
-        <div class="prediction-result">
-            {{ prediction }}
+        <div class="user-form right-side">
+            <form method="GET">
+                <!-- {% csrf_token %} -->
+                <div class="required-fields">
+                    <div class="standard-form">
+                        <label>Συντεταγμένες</label>
+                        <!-- step="any" is used to allow any float. This is helpful for coordinates -->
+                        <input placeholder="35.513830" type="number" step="any" id="user_latitude" name="user_latitude" value="{{ values.user_latitude }}" required>
+                        <input placeholder="24.020390" type="number" step="any" id="user_longitude" name="user_longitude" value="{{ values.user_longitude }}" required>
+                    </div>
+                    <div class="standard-form">
+                        <label>Διαθέσιμα Κρεβάτια</label>
+                        <input type="number" name="user_beds" value="{{ values.user_beds }}" required>
+                    </div>
+                    <div class="standard-form">
+                        <label>Φιλοξενεί</label>
+                        <input type="number" name="user_accommodates" value="{{ values.user_accommodates }}" required>
+                    </div>
+                    <div class="standard-form">
+                        <label>Ελάχιστος αριθμός διανυκτερεύσεων</label>
+                        <input type="number" name="user_minimum_nights" value="{{ values.user_minimum_nights }}" required>
+                    </div>
+                </div>
+                <div class="checkbox-fields">
+                    <div class="standard-form">
+                        <label>Πισίνα</label>
+                        <input type="checkbox" name="user_has_pool" value="1" {% if values.user_has_pool %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Θέα θάλασσα</label>
+                        <input type="checkbox" name="user_has_seaview" value="1" {% if values.user_amenities_has_seaview %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Θέα βουνό</label>
+                        <input type="checkbox" name="user_has_mountain_view" value="1" {% if values.user_has_mountain_view %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Αir condition</label>
+                        <input type="checkbox" name="user_has_air_condition" value="1" {% if values.user_has_air_condition %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Δωρεάν Πάρκινκ</label>
+                        <input type="checkbox" name="user_has_free_parking" value="1" {% if values.user_has_free_parking %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Κουζίνα</label>
+                        <input type="checkbox" name="user_has_kitchen" value="1" {% if values.user_has_kitchen %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Χρηματοκιβώτιο</label>
+                        <input type="checkbox" name="user_has_safe" value="1" {% if values.user_has_safe %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Ζεστό νερό</label>
+                        <input type="checkbox" name="user_has_hot_water" value="1" {% if values.user_has_hot_water %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Πιστολάκι μαλλιών</label>
+                        <input type="checkbox" name="user_has_hair_dryer" value="1" {% if values.user_has_hair_dryer %}checked{% endif %}>
+                    </div>
+
+                    <div class="standard-form">
+                        <label>Τζάκι</label>
+                        <input type="checkbox" name="user_has_fireplace" value="1" {% if values.user_has_fireplace %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Βίλλα</label>
+                        <input type="checkbox" name="user_is_villa" value="1" {% if values.user_is_villa %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Είναι στην Παλιά Πόλη</label>
+                        <input type="checkbox" name="user_is_in_old_town" value="1" {% if values.user_is_in_old_town %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Ολόκληρο διαμέρισμα/σπίτι</label>
+                        <input type="checkbox" name="user_entire_place" value="1" {% if values.user_entire_place %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Ενοικίαση δωματίου σε σπίτι</label>
+                        <input type="checkbox" name="user_private_room" value="1" {% if values.user_private_room %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Ενοικίαση κοινόχρηστου δωματίου</label>
+                        <input type="checkbox" name="user_shared_room" value="1" {% if values.user_shared_room %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Τροχόσπιτο/Container/Σκηνή/Σκάφος κλπ</label>
+                        <input type="checkbox" name="user_alternative" value="1" {% if values.user_alternative %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Πολυτελείας</label>
+                        <input type="checkbox" name="user_luxury" value="1" {% if values.user_luxury %}checked{% endif %}>
+                    </div>
+                    <div class="standard-form">
+                        <label>Δωμάτιο ξενοδοχείου</label>
+                        <input type="checkbox" name="user_hotel_room" value="1" {% if values.user_hotel_room %}checked{% endif %}>
+                    </div>
+                </div>
+                <div class="predict-button">
+                    <button type="submit">Πρόβλεψη</button>
+                </div>
+            </form>
         </div>
     </div>
-    
-    <div class="user-form right-side">
-        <form method="GET">
-            <!-- {% csrf_token %} -->
-             <div class="required-fields">
-                <div class="standard-form">
-                    <label>Συντεταγμένες</label>
-                    <!-- step="any" is used to allow any float. This is helpful for coordinates -->
-                    <input placeholder="35.513830" type="number" step="any" id="user_latitude" name="user_latitude" value="{{ values.user_latitude }}" required>
-                    <input placeholder="24.020390" type="number" step="any" id="user_longitude" name="user_longitude" value="{{ values.user_longitude }}" required>
-                </div>
-                <div class="standard-form">
-                    <label>Διαθέσιμα Κρεβάτια</label>
-                    <input type="number" name="user_beds" value="{{ values.user_beds }}" required>
-                </div>
-                <div class="standard-form">
-                    <label>Φιλοξενεί</label>
-                    <input type="number" name="user_accommodates" value="{{ values.user_accommodates }}" required>
-                </div>
-                <div class="standard-form">
-                    <label>Ελάχιστος αριθμός διανυκτερεύσεων</label>
-                    <input type="number" name="user_minimum_nights" value="{{ values.user_minimum_nights }}" required>
-                </div>
-            </div>
-            <div class="checkbox-fields">
-                <div class="standard-form">
-                    <label>Πισίνα</label>
-                    <input type="checkbox" name="user_has_pool" value="1" {% if values.user_has_pool %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Θέα θάλασσα</label>
-                    <input type="checkbox" name="user_has_seaview" value="1" {% if values.user_amenities_has_seaview %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Θέα βουνό</label>
-                    <input type="checkbox" name="user_has_mountain_view" value="1" {% if values.user_has_mountain_view %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Αir condition</label>
-                    <input type="checkbox" name="user_has_air_condition" value="1" {% if values.user_has_air_condition %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Δωρεάν Πάρκινκ</label>
-                    <input type="checkbox" name="user_has_free_parking" value="1" {% if values.user_has_free_parking %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Κουζίνα</label>
-                    <input type="checkbox" name="user_has_kitchen" value="1" {% if values.user_has_kitchen %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Χρηματοκιβώτιο</label>
-                    <input type="checkbox" name="user_has_safe" value="1" {% if values.user_has_safe %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Ζεστό νερό</label>
-                    <input type="checkbox" name="user_has_hot_water" value="1" {% if values.user_has_hot_water %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Πιστολάκι μαλλιών</label>
-                    <input type="checkbox" name="user_has_hair_dryer" value="1" {% if values.user_has_hair_dryer %}checked{% endif %}>
-                </div>
-
-                <div class="standard-form">
-                    <label>Τζάκι</label>
-                    <input type="checkbox" name="user_has_fireplace" value="1" {% if values.user_has_fireplace %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Βίλλα</label>
-                    <input type="checkbox" name="user_is_villa" value="1" {% if values.user_is_villa %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Είναι στην Παλιά Πόλη</label>
-                    <input type="checkbox" name="user_is_in_old_town" value="1" {% if values.user_is_in_old_town %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Ολόκληρο διαμέρισμα/σπίτι</label>
-                    <input type="checkbox" name="user_entire_place" value="1" {% if values.user_entire_place %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Ενοικίαση δωματίου σε σπίτι</label>
-                    <input type="checkbox" name="user_private_room" value="1" {% if values.user_private_room %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Ενοικίαση κοινόχρηστου δωματίου</label>
-                    <input type="checkbox" name="user_shared_room" value="1" {% if values.user_shared_room %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Τροχόσπιτο/Container/Σκηνή/Σκάφος κλπ</label>
-                    <input type="checkbox" name="user_alternative" value="1" {% if values.user_alternative %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Πολυτελείας</label>
-                    <input type="checkbox" name="user_luxury" value="1" {% if values.user_luxury %}checked{% endif %}>
-                </div>
-                <div class="standard-form">
-                    <label>Δωμάτιο ξενοδοχείου</label>
-                    <input type="checkbox" name="user_hotel_room" value="1" {% if values.user_hotel_room %}checked{% endif %}>
-                </div>
-            </div>
-            <div class="predict-button">
-                <button type="submit">Πρόβλεψη</button>
-            </div>
-        </form>
-    </div>
-
 
 
 
