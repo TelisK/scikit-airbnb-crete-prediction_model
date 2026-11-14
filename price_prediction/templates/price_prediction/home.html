@@ -10,6 +10,8 @@
     <link href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css" rel="stylesheet">
     <script src="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.js"></script>
     <link rel="stylesheet" href="{% static 'price_prediction/style.css' %}">
+    <!-- fonts -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 
 <body>
@@ -22,32 +24,33 @@
     <a href="{% url 'price_prediction:analyse_data' %}"><button>Νέα Καταχώρηση listing</button></a>
     <div class="prediction-section">
         <div class="left-side">
-            <div id="map" style="height: 400px"></div>
-            
-            <div class="prediction-result">
-                {{ prediction }}
-            </div>
+            <div id="map"></div>
         </div>
         
         <div class="user-form right-side">
             <form method="GET">
                 <!-- {% csrf_token %} -->
+                <h3><i class="fa-solid fa-house"></i> Στοιχεία καταλύματος</h3>
                 <div class="required-fields">
                     <div class="standard-form">
+                        <i class="fa-solid fa-location-dot"></i>
                         <label>Συντεταγμένες</label>
                         <!-- step="any" is used to allow any float. This is helpful for coordinates -->
                         <input placeholder="35.513830" type="number" step="any" id="user_latitude" name="user_latitude" value="{{ values.user_latitude }}" required>
                         <input placeholder="24.020390" type="number" step="any" id="user_longitude" name="user_longitude" value="{{ values.user_longitude }}" required>
                     </div>
                     <div class="standard-form">
+                        <i class="fa-solid fa-bed"></i>
                         <label>Διαθέσιμα Κρεβάτια</label>
                         <input type="number" name="user_beds" value="{{ values.user_beds }}" required>
                     </div>
                     <div class="standard-form">
+                        <i class="fa-solid fa-people-group"></i>
                         <label>Φιλοξενεί</label>
                         <input type="number" name="user_accommodates" value="{{ values.user_accommodates }}" required>
                     </div>
                     <div class="standard-form">
+                        <i class="fa-solid fa-calendar-days"></i>
                         <label>Ελάχιστος αριθμός διανυκτερεύσεων</label>
                         <input type="number" name="user_minimum_nights" value="{{ values.user_minimum_nights }}" required>
                     </div>
@@ -131,6 +134,10 @@
                     <button type="submit">Πρόβλεψη</button>
                 </div>
             </form>
+        </div>
+        <div class="prediction-result">
+            <p>Εκτίμηση εισοδήματος:</p>
+            {{ prediction }}
         </div>
     </div>
 

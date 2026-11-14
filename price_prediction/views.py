@@ -10,6 +10,10 @@ from . import processing
 import hashlib
 from . import models
 
+"""πρέπει να βάλω περιορισμό στις συντεταγμένες στα 10 χιλιομετρα 
+για να βγαίνει σωστη η πρόβλεψη. επίσης να μήν εμφανίζεται πρόβλεψη
+στη θάλασσα και σε άλλες περιοχές της Ελλάδας."""
+
 # Create your views here.
 def home(request):
     user_latitude = request.GET.get('user_latitude')
