@@ -105,11 +105,28 @@ input:checked {
     .prediction-section {
         display: grid;
         grid-template-columns: 3fr 1.5fr;
+        grid-template-rows: 4fr 1fr;
+        grid-template-areas: 
+        'map user-form'
+        'result user-form';
         background-color: var(--cards);
+        gap: 10px;
+    }
+    .left-side {
+        grid-area: map;
+    }
+    .right-side {
+        grid-area: user-form;
+    }
+    .prediction-result {
+        grid-area: result;
+        padding: 0;
+        margin-bottom: 10px;
+        
     }
     .prediction-section #map {
         height: 500px;
-        margin: 10px 10px 10px 0;
+        margin-top: 10px;
     }
     .prediction-section prediction-result {
         text-align: center;
