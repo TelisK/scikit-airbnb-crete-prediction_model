@@ -158,11 +158,12 @@
             {% endfor %}
         </div>
         {% endif %}
-        </div>
-        <div class="form-errors">
-            {{ form.errors }}
-        </div>
     </div>
+    {% if form.errors %}
+    <div class="form-errors">
+        {{ form.errors }}
+    </div>
+{% endif %}
 
     <script>
         // from https://openfreemap.org/quick_start/

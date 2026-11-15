@@ -120,7 +120,6 @@ footer .btn-manage {
   /* need pointer-events: none because it's hidden and covers the buttons. */
   pointer-events: none;
   z-index: 9999;
-
 }
 .alert-message-success {
     background: var(--checkbox-btn);
@@ -135,10 +134,16 @@ footer .btn-manage {
     border-radius: 6px;
 }
 .form-errors {
-  padding: 10px;
-  border-radius: 6px;
-  background-color: var(--black);
-  color: white;
+    position: fixed;
+    top: 150px;
+    right: 100px;
+    /* need pointer-events: none because it's hidden and covers the buttons. */
+    pointer-events: none;
+    z-index: 9999;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: var(--black);
+    color: white;
 }
 @media screen and (min-width: 1000px) {
 
