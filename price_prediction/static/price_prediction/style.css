@@ -113,7 +113,33 @@ footer .btn-manage {
     color: white;
     
 }
+.message-container {
+  position: fixed;
+  top: 80px;
+  right: 100px;
+  /* need pointer-events: none because it's hidden and covers the buttons. */
+  pointer-events: none;
+  z-index: 9999;
 
+}
+.alert-message-success {
+    background: var(--checkbox-btn);
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+}
+.alert-message-error {
+    background-color: var(--warning);
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+}
+.form-errors {
+  padding: 10px;
+  border-radius: 6px;
+  background-color: var(--black);
+  color: white;
+}
 @media screen and (min-width: 1000px) {
 
     .prediction-section {

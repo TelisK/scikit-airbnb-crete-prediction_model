@@ -83,8 +83,7 @@ def home(request):
                 'prediction':prediction,
                 'values':request.GET,
             }
-            print(request.GET)
-            print(prediction)
+
             return render(request, 'price_prediction/home.html', context=context_to_html)
 
         except Exception as e:
