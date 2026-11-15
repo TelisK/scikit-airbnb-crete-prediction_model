@@ -1,20 +1,26 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Analyse Data</title>
+    <link rel="stylesheet" href="{% static 'price_prediction/style.css' %}">
 </head>
 
 <body>
-    <h1>Analyser</h1>
-    <a href="{% url 'price_prediction:home' %}"><button>Αρχική</button></a>
+    <div class="analyser-title">
+        <h1>Data Analyser</h1>
+        <a href="{% url 'price_prediction:home' %}"><button class="btn-gray">Αρχική</button></a>
+    </div>
+    
     <div class="upload-listings">
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.file }}
-            <button type="submit">Upload</button>
+            <button type="submit" class="btn-black">Upload</button>
         </form>
     </div>
     {% if result %}
