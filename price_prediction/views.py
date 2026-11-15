@@ -9,6 +9,7 @@ from django.contrib import messages
 from . import processing
 import hashlib
 from . import models
+from django.contrib.auth.decorators import login_required
 
 """πρέπει να βάλω περιορισμό στις συντεταγμένες στα 10 χιλιομετρα 
 για να βγαίνει σωστη η πρόβλεψη. επίσης να μήν εμφανίζεται πρόβλεψη
@@ -116,7 +117,7 @@ def home(request):
         'user_hotel_room':user_hotel_room,
     }
     return render(request, 'price_prediction/home.html', context=context_to_html)
-# @login_required
+@login_required
 def analyse_data(request):
     files = models.DataInformation.objects.values('related_file').distinct().count()
     areas = models.DataInformation.objects.values('data_area').distinct()
@@ -179,7 +180,7 @@ def analyse_data(request):
     return render(request, 'price_prediction/analyse_data.html', context=context_to_html)
 
 
-# @login_required
+@login_required
 def import_data(request):
     if request.method == 'POST':
         form = DataInformationForm(request.POST)
@@ -251,7 +252,7 @@ def import_data(request):
 
     return redirect('price_prediction:import_data')
 
-
+@login_required
 def model_train(request):
 
     if request.method == 'POST':
@@ -283,13 +284,4 @@ def model_train(request):
             return redirect('price_prediction:model_train')
 
     return render(request, 'price_prediction/model_train.html')
-
-def prediction():
-    pass
-
-
-# το prediction model θα δημιουργεί το transformer.pkl. Να το αποθηκεύω στη βάση; Ή να το δίνω με import απο εξωτερικό αρχείο;
-# Ε΄άν θέλω στο μέλλον διαδραστικό χάρτη με περι΄΄οχές πώς θα εξυπηρετούσε να γίνει;
-# Μπορεί να εμφανίζει στο χάρτη τα δεδομένα της βάσης. Τη πρόβλεψη καθώς και το σημείο του ενδιαφερόμενου θα δίνεται
-# απο το prediction view ;;;
 
