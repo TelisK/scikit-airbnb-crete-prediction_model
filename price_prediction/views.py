@@ -12,12 +12,14 @@ from . import models
 from django.contrib.auth.decorators import login_required
 import geopy.distance # distance based on coordinates
 
-"""πρέπει να βάλω περιορισμό στις συντεταγμένες στα 10 χιλιομετρα 
-για να βγαίνει σωστη η πρόβλεψη. επίσης να μήν εμφανίζεται πρόβλεψη
-στη θάλασσα και σε άλλες περιοχές της Ελλάδας."""
-
-
 def coordinates_distance(lon1,lat1,lon2,lat2):
+    """ Gets two different locations on Earth and calculates
+    the distance between them in kilometers.
+
+    Details and different ways for this calculation here:
+    https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
+    """
+
     coords_1 = (lon1, lat1)
     coords_2 = (lon2, lat2)
 
