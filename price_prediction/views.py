@@ -53,14 +53,18 @@ def home(request):
     user_hotel_room = 1 if request.GET.get('user_hotel_room') else 0
 
     if request.GET:
-        lat1 = models.DataSet.objects.values_list('latitude')
-        lon1 = models.DataSet.objects.values('longitude')
-        print(lat1)
-        distance = coordinates_distance(lat1, lon1, float(user_latitude), float(user_longitude))
-
-        if distance > 10:
-            messages.error(request, 'Το σημείο που επιλέξατε απέχει πάνω απο 10χλμ' \
+        coords = models.DataSet.objects.values_list('latitude', 'longitude')
+        min_distance = 11
+        for lat1, lon1 in coords:
+            distance = coordinates_distance(lat1, lon1, float(user_latitude), float(user_longitude))
+            if distance < min_distance:
+                min_distance = distance
+                break
+                
+        if min_distance > 10:
+            messages.error(request, 'Το σημείο που επιλέξατε απέχει πάνω απο 10χλμ ' \
             'απο το κοντινότερο σημείο με δεδομένα. Δέν μπορούμε να υπολογίσουμε δεδομένα')
+            return render(request, 'price_prediction/home.html', context={'values':request.GET})
         else:
             try:
 
