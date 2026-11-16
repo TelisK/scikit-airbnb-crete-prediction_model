@@ -10,10 +10,20 @@ from . import processing
 import hashlib
 from . import models
 from django.contrib.auth.decorators import login_required
+import geopy.distance # distance based on coordinates
 
 """πρέπει να βάλω περιορισμό στις συντεταγμένες στα 10 χιλιομετρα 
 για να βγαίνει σωστη η πρόβλεψη. επίσης να μήν εμφανίζεται πρόβλεψη
 στη θάλασσα και σε άλλες περιοχές της Ελλάδας."""
+
+
+def coordinates_distance(lon1,lat1,lon2,lat2):
+    coords_1 = (lon1, lat1)
+    coords_2 = (lon2, lat2)
+
+    result = geopy.distance.geodesic(coords_1, coords_2).km
+
+    return result
 
 # Create your views here.
 def home(request):
@@ -43,51 +53,60 @@ def home(request):
     user_hotel_room = 1 if request.GET.get('user_hotel_room') else 0
 
     if request.GET:
-        try:
+        lat1 = models.DataSet.objects.values_list('latitude')
+        lon1 = models.DataSet.objects.values('longitude')
+        print(lat1)
+        distance = coordinates_distance(lat1, lon1, float(user_latitude), float(user_longitude))
 
-            input_data = pd.DataFrame([{
-                'latitude': float(user_latitude),
-                'longitude': float(user_longitude),
-                'beds': int(user_beds),
-                'accommodates': int(user_accommodates),
-                'minimum_nights': int(user_minimum_nights),
-                'has_pool': user_has_pool,
-                'amenities_has_seaview': seaview,
-                'has_air_condition': user_has_air_condition,
-                'has_free_parking': user_has_free_parking,
-                'has_kitchen': user_has_kitchen,
-                'has_safe': user_has_safe,
-                'has_hot_water': user_has_hot_water,
-                'has_hair_dryer': user_has_hair_dryer,
-                'has_mountain_view': user_has_mountain_view,
-                'has_fireplace': user_has_fireplace,
-                'is_villa': user_is_villa,
-                'is_in_old_town': user_is_in_old_town,
-                'description_has_seaview': seaview,
-                'entire_place': user_entire_place,
-                'private_room': user_private_room,
-                'shared_room': user_shared_room,
-                'alternative': user_alternative,
-                'luxury': user_luxury,
-                'hotel_room': user_hotel_room,
-            }])
+        if distance > 10:
+            messages.error(request, 'Το σημείο που επιλέξατε απέχει πάνω απο 10χλμ' \
+            'απο το κοντινότερο σημείο με δεδομένα. Δέν μπορούμε να υπολογίσουμε δεδομένα')
+        else:
+            try:
 
-            model = joblib.load('model.pkl')
-            prediction = model.predict(input_data)
-            prediction = f'{prediction[0]:.2f} € / Διανυκτέρευση'
+                input_data = pd.DataFrame([{
+                    'latitude': float(user_latitude),
+                    'longitude': float(user_longitude),
+                    'beds': int(user_beds),
+                    'accommodates': int(user_accommodates),
+                    'minimum_nights': int(user_minimum_nights),
+                    'has_pool': user_has_pool,
+                    'amenities_has_seaview': seaview,
+                    'has_air_condition': user_has_air_condition,
+                    'has_free_parking': user_has_free_parking,
+                    'has_kitchen': user_has_kitchen,
+                    'has_safe': user_has_safe,
+                    'has_hot_water': user_has_hot_water,
+                    'has_hair_dryer': user_has_hair_dryer,
+                    'has_mountain_view': user_has_mountain_view,
+                    'has_fireplace': user_has_fireplace,
+                    'is_villa': user_is_villa,
+                    'is_in_old_town': user_is_in_old_town,
+                    'description_has_seaview': seaview,
+                    'entire_place': user_entire_place,
+                    'private_room': user_private_room,
+                    'shared_room': user_shared_room,
+                    'alternative': user_alternative,
+                    'luxury': user_luxury,
+                    'hotel_room': user_hotel_room,
+                }])
 
-# μου τα αλλαζει το . με , στα latitude και longitude. Μαλλον φταίει η ελληνική έκδοση browser?
-# στο url και στα prints είναι σωστό.
-# πρέπει να βρώ λύση.
-            context_to_html = {
-                'prediction':prediction,
-                'values':request.GET,
-            }
+                model = joblib.load('model.pkl')
+                prediction = model.predict(input_data)
+                prediction = f'{prediction[0]:.2f} € / Διανυκτέρευση'
 
-            return render(request, 'price_prediction/home.html', context=context_to_html)
+    # μου τα αλλαζει το . με , στα latitude και longitude. Μαλλον φταίει η ελληνική έκδοση browser?
+    # στο url και στα prints είναι σωστό.
+    # πρέπει να βρώ λύση.
+                context_to_html = {
+                    'prediction':prediction,
+                    'values':request.GET,
+                }
 
-        except Exception as e:
-            messages.error(request, f'Τα πεδία είναι λάθος. {e}')
+                return render(request, 'price_prediction/home.html', context=context_to_html)
+
+            except Exception as e:
+                messages.error(request, f'Τα πεδία είναι λάθος. {e}')
 
     context_to_html = {
         'user_latitude':user_latitude,
