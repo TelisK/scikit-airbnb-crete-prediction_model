@@ -148,7 +148,7 @@
 
     </footer>
 
-    <div class="message-container">
+    <div class="message-container alert">
         {% if messages %}
         <div>
             {% for message in messages %}
@@ -160,7 +160,7 @@
         {% endif %}
     </div>
     {% if form.errors %}
-    <div class="form-errors">
+    <div class="alert form-errors">
         {{ form.errors }}
     </div>
 {% endif %}
