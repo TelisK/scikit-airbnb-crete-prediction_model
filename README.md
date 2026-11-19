@@ -3,10 +3,13 @@
 This project was created to estimate the price / night for an AirBnB listing, based on the location and the house features.
 
 This is the new version of the application, running in Django.
+The original backend version and first approach can be found in the [legacy](legacy/) folder.
 
 ## About
 
 The admin can upload listing files from [insideairbnb.com/](https://insideairbnb.com) of *any location* to the application, and train the model. Based on these data, it can make price predictions for accommodation.
+
+Map : [OpenFreeMap](https://openfreemap.org/)
 
 Deployed application for Crete : 
 
@@ -47,6 +50,9 @@ Deployed application for Crete :
 - python manage.py runserver
 
 ## Live
+
+
+
 
 
 ## Author
