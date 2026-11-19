@@ -127,8 +127,8 @@ MAILERS = {
     },
 }
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+# STATIC_URL = 'static/'
+# STATICFILES_DIRS = [BASE_DIR / 'static']
 # STATIC_ROOT = BASE_DIR / 'static'
 
 LOGIN_URL = '/admin/login/'
