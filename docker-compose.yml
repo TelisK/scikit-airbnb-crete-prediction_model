@@ -1,0 +1,29 @@
+services:
+  web:
+    build: .
+    restart: always
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+         python manage.py migrate &&
+         gunicorn business_tools.wsgi:application --bind 0.0.0.0:8000 --workers 1 --threads 4 --timeout 120 --access-logfile - --error-logfile -"
+    env_file:
+      - .env
+    environment:
+      - SQLITE_PATH=/app/data/db.sqlite3
+    volumes:
+      - ./static:/app/static
+      - ${DATA_DIR:-./data}:/app/data
+    expose:
+      - "8000"
+
+  nginx:
+      image: nginx:latest
+      restart: always
+      ports:
+        - "80:80"
+      volumes:
+        - ./nginx:/etc/nginx/conf.d:ro  
+        - ./static:/app/static:ro  # Ο Nginx διαβάζει τα static (Read-Only)
+        - ./price_prediction/static:/app/price_prediction/static:ro
+      depends_on:
+        - web
