@@ -12,3 +12,4 @@ transformer.pkl
 .env
 .venv
 requirements-all.txt
+.notes.txt
