@@ -21,6 +21,6 @@ from django.conf import settings
 prefix = f"{settings.APP_SUBPATH.strip('/')}/" if settings.APP_SUBPATH else ""
 
 urlpatterns = [
-    path(f'{prefix}/admin/', admin.site.urls),
+    path(f'{prefix}admin/', admin.site.urls),
     path(prefix, include('price_prediction.urls'))
 ]

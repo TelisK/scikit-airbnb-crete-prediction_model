@@ -20,6 +20,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+APP_SUBPATH = os.getenv('APP_SUBPATH', '')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
@@ -80,7 +81,7 @@ WSGI_APPLICATION = 'airbnb_prediction.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.environ.get('SQLITE_PATH' ,BASE_DIR / 'db.sqlite3'),
+        'NAME': os.environ.get('SQLITE_PATH', BASE_DIR / 'db.sqlite3'),
     }
 }
 
@@ -131,9 +132,15 @@ MAILERS = {
     },
 }
 
-# STATIC_URL = 'static/'
-# STATICFILES_DIRS = [BASE_DIR / 'static']
-# STATIC_ROOT = BASE_DIR / 'static'
+static_prefix = f"/{APP_SUBPATH.strip('/')}" if APP_SUBPATH else ""
+STATIC_URL = f"{static_prefix}/static/"
+STATIC_ROOT = BASE_DIR / 'static'
 
-LOGIN_URL = '/admin/login/'
-LOGIN_REDIRECT_URL = '/analyse_data/'
+LOGIN_URL = 'admin:login'
+LOGIN_REDIRECT_URL = 'analyse_data'
+
+allowed_hosts = os.getenv('ALLOWED_HOSTS', '')
+ALLOWED_HOSTS = [x for x in allowed_hosts.split(',') if x]
+
+csrf_origins = os.getenv('CSRF_TRUSTED_ORIGINS', '')
+CSRF_TRUSTED_ORIGINS = [x for x in csrf_origins.split(',') if x]
