@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+
+prefix = f"{settings.APP_SUBPATH.strip('/')}/" if settings.APP_SUBPATH else ""
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('price_prediction.urls')) 
+    path(f'{prefix}/admin/', admin.site.urls),
+    path(prefix, include('price_prediction.urls'))
 ]
