@@ -11,7 +11,7 @@ The admin can upload listing files from [insideairbnb.com/](https://insideairbnb
 
 Map : [OpenFreeMap](https://openfreemap.org/)
 
-Deployed application for Crete : [Live]https://tkoutsogiannakis.site/airbnb-crete-income-estimator
+Deployed application for Crete : [Live]https://airbnb-crete-income-estimator.tkoutsogiannakis.site/
 
  ![Picture of the home page](docs/home.png)
 
@@ -71,10 +71,10 @@ Deployed application for Crete : [Live]https://tkoutsogiannakis.site/airbnb-cret
 - docker compose -f docker-compose.local.yml exec web python manage.py createsuperuser
 - Access here: http://localhost:8000/
 
-## Live
 
+## Disclaimer 
 
-**Disclaimer:** Predictions are estimates based on publicly available listing data from [Inside Airbnb](https://insideairbnb.com) and may not match actual prices. The data is subject to Inside Airbnb's own terms of use.
+Predictions are estimates based on publicly available listing data from [Inside Airbnb](https://insideairbnb.com) and may not match actual prices. The data is subject to Inside Airbnb's own terms of use.
 
 
 ## Author
