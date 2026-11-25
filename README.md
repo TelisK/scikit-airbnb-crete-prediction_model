@@ -11,7 +11,9 @@ The admin can upload listing files from [insideairbnb.com/](https://insideairbnb
 
 Map : [OpenFreeMap](https://openfreemap.org/)
 
-Deployed application for Crete : 
+Deployed application for Crete : [Live]https://tkoutsogiannakis.site/airbnb-crete-income-estimator
+
+ ![Picture of the home page](docs/home.png)
 
 **Note:** The application interface is in Greek, designed for Greek-speaking users.
 
@@ -25,7 +27,9 @@ Deployed application for Crete :
 
 - Prediction of estimated occupancy.
 - Prediction of estimated annual income.
-- More efficient ways to check when the user is searching away from areas with available data.
+- Additional languages.
+- More efficient way to check when the user is searching outside the covered areas.
+- Expansion to more areas.
 
 ## Tech Stack
 
@@ -37,22 +41,40 @@ Deployed application for Crete :
 - **Server:** Ubuntu, Nginx + Gunicorn
 - **Deployment:** Docker Compose, Cloudflare Tunnel
 
-## Setup
+## Local Development Setup
 
-- clone και virtual environment
+- Clone repository
+- python -m venv venv
+- Activate virtual enviroment: source venv/bin/activate (Linux) / venv\Scripts\activate (Windows)
 - pip install -r requirements.txt
+- cp .env.example .env
+- python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+- Paste the SECRET_KEY in the .env file.
 
-
-### Local Development
+- **Uncomment the local section on .env file. Comment the local docker and public docker.**
 
 - python manage.py migrate 
 - python manage.py createsuperuser
 - python manage.py runserver
+- Access here: http://localhost:8000/
+
+### Docker Local Setup
+
+- Clone repository
+- cp .env.example .env
+- python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+- Paste the SECRET_KEY in the .env file.
+
+- **Uncomment the local docker section on .env file. Comment the local and public docker.**
+
+- docker compose -f docker-compose.local.yml up -d --build
+- docker compose -f docker-compose.local.yml exec web python manage.py createsuperuser
+- Access here: http://localhost:8000/
 
 ## Live
 
 
-
+**Disclaimer:** Predictions are estimates based on publicly available listing data from [Inside Airbnb](https://insideairbnb.com) and may not match actual prices. The data is subject to Inside Airbnb's own terms of use.
 
 
 ## Author
