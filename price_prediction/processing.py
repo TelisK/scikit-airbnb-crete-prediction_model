@@ -57,27 +57,6 @@ def clean_data(uploaded_file):
     df_for_model['beds'] = df_for_model['beds'].fillna(df_for_model['beds'].median())
     df_for_model['minimum_nights'] = df_for_model['minimum_nights'].fillna(df_for_model['minimum_nights'].median())
 
-    # df_for_model.loc[((df_for_model['number_of_reviews'] == 0) & (df_for_model['review_scores_rating'].isna())), 'review_scores_rating'] = 0
-
-    '''Made new column for the nan cells. That way I have better categorize of the data, instead of just using 0.
-    Another option was to set 2 on the nan cells. But this will not be a boolean anymore, and if we change the 
-    sklearn algorithm this will give an error.
-    '''
-    # df_for_model['host_is_superhost_isNaN'] = df_for_model['host_is_superhost'].isnull().astype(int)
-    # df_for_model['host_is_superhost'] = df_for_model['host_is_superhost'].fillna('f')
-    # df_for_model['host_is_superhost'] = df_for_model['host_is_superhost'].map({'t': 1, 'f': 0})
-
-    # df_for_model['instant_bookable_isNaN'] = df_for_model['instant_bookable'].isnull().astype(int)
-    # df_for_model['instant_bookable'] = df_for_model['instant_bookable'].fillna('f')
-    # df_for_model['instant_bookable'] = df_for_model['instant_bookable'].map({'t': 1, 'f': 0})
-    
-        
-    # df_for_model['host_response_time'] = df_for_model['host_response_time'].map({
-    #     'a few days or more' : 1,
-    #     'within a day' : 2,
-    #     'within a few hours' : 3,
-    #     'within an hour' : 4,
-    # }).fillna(0)
 
     # corrections on the price column
     df_for_model['price'] = df_for_model['price'].str.replace('$','')

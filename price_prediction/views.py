@@ -102,9 +102,6 @@ def home(request):
                 prediction = model.predict(input_data)
                 prediction = f'{prediction[0]:.2f} € / Διανυκτέρευση'
 
-    # μου τα αλλαζει το . με , στα latitude και longitude. Μαλλον φταίει η ελληνική έκδοση browser?
-    # στο url και στα prints είναι σωστό.
-    # πρέπει να βρώ λύση.
                 context_to_html = {
                     'prediction':prediction,
                     'values':request.GET,
@@ -121,7 +118,6 @@ def home(request):
         'user_beds':user_beds,
         'user_accommodates':user_accommodates,
         'user_minimum_nights':user_minimum_nights,
-        # 'user_number_of_reviews':user_number_of_reviews,
         'user_has_pool':user_has_pool,
         'user_amenities_has_seaview':user_has_seaview,
         'user_has_mountain_view':user_has_mountain_view,
@@ -298,8 +294,6 @@ def model_train(request):
             model.fit(X_train,y_train)
             messages.success(request, 'Model Trained!')
 
-            # Εδώ λείπει το transformer.pkl. Νομίζω δέν χρειάζεται απο τη στιγμή που δίνω όλα τα columns και δέν δημιουργεί
-            # το scikit learn columns με δεδομένα.
             joblib.dump(model, settings.MODEL_PATH)
             messages.success(request, f'Model Saved!')
             return redirect('price_prediction:analyse_data')
