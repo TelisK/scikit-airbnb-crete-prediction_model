@@ -20,7 +20,8 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-APP_SUBPATH = os.getenv('APP_SUBPATH', '')
+# APP_SUBPATH = os.getenv('APP_SUBPATH', '')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
@@ -121,7 +122,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
+# static_prefix = f"/{APP_SUBPATH.strip('/')}" if APP_SUBPATH else ""
+# STATIC_URL = f"{static_prefix}/static/"
+# STATIC_ROOT = BASE_DIR / 'static'
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
@@ -132,9 +135,7 @@ MAILERS = {
     },
 }
 
-static_prefix = f"/{APP_SUBPATH.strip('/')}" if APP_SUBPATH else ""
-STATIC_URL = f"{static_prefix}/static/"
-STATIC_ROOT = BASE_DIR / 'static'
+
 
 LOGIN_URL = 'admin:login'
 LOGIN_REDIRECT_URL = 'analyse_data'
