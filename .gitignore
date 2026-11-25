@@ -14,3 +14,4 @@ transformer.pkl
 requirements-all.txt
 .notes.txt
 static/
+.gitattributes
