@@ -11,6 +11,7 @@ import hashlib
 from . import models
 from django.contrib.auth.decorators import login_required
 import geopy.distance # distance based on coordinates
+from django.conf import settings
 
 def coordinates_distance(lon1,lat1,lon2,lat2):
     """ Gets two different locations on Earth and calculates
@@ -97,7 +98,7 @@ def home(request):
                     'hotel_room': user_hotel_room,
                 }])
 
-                model = joblib.load('model.pkl')
+                model = joblib.load(settings.MODEL_PATH)
                 prediction = model.predict(input_data)
                 prediction = f'{prediction[0]:.2f} € / Διανυκτέρευση'
 
@@ -299,7 +300,7 @@ def model_train(request):
 
             # Εδώ λείπει το transformer.pkl. Νομίζω δέν χρειάζεται απο τη στιγμή που δίνω όλα τα columns και δέν δημιουργεί
             # το scikit learn columns με δεδομένα.
-            joblib.dump(model, 'model.pkl')
+            joblib.dump(model, settings.MODEL_PATH)
             messages.success(request, f'Model Saved!')
             return redirect('price_prediction:analyse_data')
         

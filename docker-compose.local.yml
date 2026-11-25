@@ -9,6 +9,7 @@ services:
       - .env
     environment:
       - SQLITE_PATH=/app/data/db.sqlite3
+      - APP_DATA_DIR=/app/data
     volumes:
       - ./static:/app/static
       - ./data:/app/data

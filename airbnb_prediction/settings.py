@@ -146,3 +146,7 @@ ALLOWED_HOSTS = [x for x in allowed_hosts.split(',') if x]
 
 csrf_origins = os.getenv('CSRF_TRUSTED_ORIGINS', '')
 CSRF_TRUSTED_ORIGINS = [x for x in csrf_origins.split(',') if x]
+
+DATA_DIR = os.environ.get('APP_DATA_DIR', BASE_DIR)
+MODEL_PATH = os.path.join(DATA_DIR, 'model.pkl')
+MEDIA_ROOT = DATA_DIR
