@@ -57,76 +57,76 @@
                     </div>
                     <div class="checkbox-fields">
                         <div class="standard-form">
-                            <input type="checkbox" name="user_has_pool" value="1" {% if values.user_has_pool %}checked{% endif %}>
-                            <label>Πισίνα</label>
+                            <input type="checkbox" id="pool" name="user_has_pool" value="1" {% if values.user_has_pool %}checked{% endif %}>
+                            <label for="pool">Πισίνα</label>
                         </div>
                         <div class="standard-form">                        
-                            <input type="checkbox" name="user_has_seaview" value="1" {% if values.user_has_seaview %}checked{% endif %}>
-                            <label>Θέα θάλασσα</label>
+                            <input type="checkbox" id="seaview" name="user_has_seaview" value="1" {% if values.user_has_seaview %}checked{% endif %}>
+                            <label for="seaview">Θέα θάλασσα</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_has_mountain_view" value="1" {% if values.user_has_mountain_view %}checked{% endif %}>
-                            <label>Θέα βουνό</label>
+                            <input type="checkbox" id="mountain_view" name="user_has_mountain_view" value="1" {% if values.user_has_mountain_view %}checked{% endif %}>
+                            <label for="mountain_view">Θέα βουνό</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_has_air_condition" value="1" {% if values.user_has_air_condition %}checked{% endif %}>
-                            <label>Αir condition</label>
+                            <input type="checkbox" id="air_condition" name="user_has_air_condition" value="1" {% if values.user_has_air_condition %}checked{% endif %}>
+                            <label for="air_condition">Αir condition</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_has_free_parking" value="1" {% if values.user_has_free_parking %}checked{% endif %}>
-                            <label>Δωρεάν Πάρκινκ</label>
+                            <input type="checkbox" id="free_parking" name="user_has_free_parking" value="1" {% if values.user_has_free_parking %}checked{% endif %}>
+                            <label for="free_parking">Δωρεάν Πάρκινκ</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_has_kitchen" value="1" {% if values.user_has_kitchen %}checked{% endif %}>
-                            <label>Κουζίνα</label>
+                            <input type="checkbox" id="has_kitchen" name="user_has_kitchen" value="1" {% if values.user_has_kitchen %}checked{% endif %}>
+                            <label for="has_kitchen">Κουζίνα</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_has_safe" value="1" {% if values.user_has_safe %}checked{% endif %}>
-                            <label>Χρηματοκιβώτιο</label>
+                            <input type="checkbox" id="has_safe" name="user_has_safe" value="1" {% if values.user_has_safe %}checked{% endif %}>
+                            <label for="has_safe">Χρηματοκιβώτιο</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_has_hot_water" value="1" {% if values.user_has_hot_water %}checked{% endif %}>
-                            <label>Ζεστό νερό</label>
+                            <input type="checkbox" id="hot_water" name="user_has_hot_water" value="1" {% if values.user_has_hot_water %}checked{% endif %}>
+                            <label for="hot_water">Ζεστό νερό</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_has_hair_dryer" value="1" {% if values.user_has_hair_dryer %}checked{% endif %}>
-                            <label>Πιστολάκι μαλλιών</label>
+                            <input type="checkbox" id="hair_dryer" name="user_has_hair_dryer" value="1" {% if values.user_has_hair_dryer %}checked{% endif %}>
+                            <label for="hair_dryer">Πιστολάκι μαλλιών</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_has_fireplace" value="1" {% if values.user_has_fireplace %}checked{% endif %}>
-                            <label>Τζάκι</label>
+                            <input type="checkbox" id="fireplace" name="user_has_fireplace" value="1" {% if values.user_has_fireplace %}checked{% endif %}>
+                            <label for="fireplace">Τζάκι</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_is_villa" value="1" {% if values.user_is_villa %}checked{% endif %}>
-                            <label>Βίλλα</label>
+                            <input type="checkbox" id="is_villa" name="user_is_villa" value="1" {% if values.user_is_villa %}checked{% endif %}>
+                            <label for="is_villa">Βίλλα</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_is_in_old_town" value="1" {% if values.user_is_in_old_town %}checked{% endif %}>
-                            <label>Είναι στην Παλιά Πόλη</label>
+                            <input type="checkbox" id="old_town" name="user_is_in_old_town" value="1" {% if values.user_is_in_old_town %}checked{% endif %}>
+                            <label for="old_town">Είναι στην Παλιά Πόλη</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_entire_place" value="1" {% if values.user_entire_place %}checked{% endif %}>
-                            <label>Ολόκληρο διαμέρισμα/σπίτι</label>
+                            <input type="checkbox" id="entire_place" name="user_entire_place" value="1" {% if values.user_entire_place %}checked{% endif %}>
+                            <label for="entire_place">Ολόκληρο διαμέρισμα/σπίτι</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_private_room" value="1" {% if values.user_private_room %}checked{% endif %}>
-                            <label>Ενοικίαση δωματίου σε σπίτι</label>
+                            <input type="checkbox" id="private_room" name="user_private_room" value="1" {% if values.user_private_room %}checked{% endif %}>
+                            <label for="private_room">Ενοικίαση δωματίου σε σπίτι</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_shared_room" value="1" {% if values.user_shared_room %}checked{% endif %}>
-                            <label>Ενοικίαση κοινόχρηστου δωματίου</label>
+                            <input type="checkbox" id="shared_room" name="user_shared_room" value="1" {% if values.user_shared_room %}checked{% endif %}>
+                            <label for="shared_room">Ενοικίαση κοινόχρηστου δωματίου</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_alternative" value="1" {% if values.user_alternative %}checked{% endif %}>
-                            <label>Τροχόσπιτο/Container/Σκηνή/Σκάφος κλπ</label>
+                            <input type="checkbox" id="alternative" name="user_alternative" value="1" {% if values.user_alternative %}checked{% endif %}>
+                            <label for="alternative">Τροχόσπιτο/Container/Σκηνή/Σκάφος κλπ</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_luxury" value="1" {% if values.user_luxury %}checked{% endif %}>
-                            <label>Πολυτελείας</label>
+                            <input type="checkbox" id="luxury" name="user_luxury" value="1" {% if values.user_luxury %}checked{% endif %}>
+                            <label for="luxury">Πολυτελείας</label>
                         </div>
                         <div class="standard-form">
-                            <input type="checkbox" name="user_hotel_room" value="1" {% if values.user_hotel_room %}checked{% endif %}>
-                            <label>Δωμάτιο ξενοδοχείου</label>
+                            <input type="checkbox" id="hotel_room" name="user_hotel_room" value="1" {% if values.user_hotel_room %}checked{% endif %}>
+                            <label for="hotel_room">Δωμάτιο ξενοδοχείου</label>
                         </div>
                     </div>
                     <div class="predict-button">
@@ -171,8 +171,8 @@
         const map = new maplibregl.Map({
             container: 'map',
             style: 'https://tiles.openfreemap.org/styles/liberty',
-            center: [24.81, 35.30],   // [lng, lat] — Κρήτη
-            zoom: 8,
+            center: [24.90, 35.30],   // [lng, lat] — Κρήτη
+            zoom: 7.8,
         });
 
         let marker = null;
